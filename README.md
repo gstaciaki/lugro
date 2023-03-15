@@ -7,8 +7,8 @@ Nunca mais perca seus eventos favoritos ou passe uma noite entediado. <br/>
 LugRo, o aplicativo para te tirar do tédio e marcar aquele rolê.<br/>
 
 
-Desenvolvedores:<br/>
-Isabela T Vitek <br/>
-Guilherme Staciaki<br/>
-Lígia Falcão N. Miranda<br/>
-Vinícius<br/>
+## Desenvolvedores:
+Isabela T Vitek, 
+Guilherme Staciaki,
+Lígia Falcão N. Miranda,
+Vinícius,
