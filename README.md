@@ -8,7 +8,7 @@ LugRo, o aplicativo para te tirar do tédio e marcar aquele rolê.
 
 
 Desenvolvedores:
-\n Isabela T Vitek 
-\n Guilherme Staciaki
+Isabela T Vitek 
+Guilherme Staciaki
 Lígia Falcão N. Miranda
 Vinícius
