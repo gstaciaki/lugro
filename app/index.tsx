@@ -1,3 +1,4 @@
+import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -6,6 +7,7 @@ export default function Index() {
     <View style={styles.container}>
       <Text>O Jogo</Text>
       <StatusBar style="auto" />
+      <Link href="/description">Click</Link>
     </View>
   );
 }
