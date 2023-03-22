@@ -1,3 +1,4 @@
+
 import { Link, useRouter } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button  } from 'react-native';
@@ -5,17 +6,23 @@ import { StyleSheet, Text, View, Button  } from 'react-native';
 export default function Index() {
   const router = useRouter();
 
-  const register = () => {
+  const company = () => {
     router.push({
-      pathname: "/register",
+      pathname: "/register/company",
+    });
+  };
+
+  const user = () => {
+    router.push({
+      pathname: "/register/user",
     });
   };
 
   return (
     <View style={styles.container}>
-      <Text>O Jogo</Text>
-      <Button onPress={register} title="Cadastrar" />
-      <StatusBar style="auto" />
+      <Text>Cadastrar</Text>
+      <Button onPress={user} title="Cliente" />
+      <Button onPress={company} title="Empresa" />
     </View>
   );
 }
@@ -23,7 +30,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#EEEFFD',
     alignItems: 'center',
     justifyContent: 'center',
   },
