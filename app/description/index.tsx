@@ -1,22 +1,23 @@
-import { Link, useRouter } from "expo-router";
+import { Link, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button  } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default function Index() {
   const router = useRouter();
 
-  const register = () => {
+  const handleLinkWithParams = () => {
     router.push({
-      pathname: "/register",
+      pathname: "/",
     });
   };
 
   return (
     <View style={styles.container}>
-      <Text>O Jogo</Text>
-      <Button onPress={register} title="Cadastrar" />
-      <StatusBar style="auto" />
-      <Link href="/description">Click</Link>
+      <Text>
+        Decrição da Empresa
+      </Text>
+
+      <Button onPress={handleLinkWithParams} title="Voltar" />
     </View>
   );
 }
