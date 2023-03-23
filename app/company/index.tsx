@@ -5,19 +5,26 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 export default function Index() {
   const router = useRouter();
 
-  const empresa = () => {
+  const description = () => {
     router.push({
-      pathname: "/company",
+      pathname: "/description",
+    });
+  };
+
+  const home = () => {
+    router.push({
+      pathname: "/",
     });
   };
 
   return (
     <View style={styles.container}>
       <Text>
-        Decrição da Empresa
+        Empresa
       </Text>
 
-      <Button onPress={empresa} title="Voltar" />
+      <Button onPress={description} title="Descrição" />
+      <Button onPress={home} title="Home" />
     </View>
   );
 }

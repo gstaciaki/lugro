@@ -16,7 +16,7 @@ export default function Index() {
       <Text>O Jogo</Text>
       <Button onPress={register} title="Cadastrar" />
       <StatusBar style="auto" />
-      <Link href="/description">Click</Link>
+      <Link href="/company">Empresas</Link>
     </View>
   );
 }
