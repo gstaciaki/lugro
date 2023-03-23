@@ -6,9 +6,44 @@ Pelo nosso aplicativo você saberá exatamente onde e quando vai ser, além de i
 Nunca mais perca seus eventos favoritos ou passe uma noite entediado. <br/>
 LugRo, o aplicativo para te tirar do tédio e marcar aquele rolê.<br/>
 
+## Instalação
+
+Para executar localmente a aplicação, siga os passos abaixo:
+
+1. Clone o repositório
+
+```bash
+git clone https://github.com/gstaciaki/lugro.git
+```
+
+2. Entre na pasta do projeto
+
+```bash
+cd LugRo
+```
+
+3. Instale as dependências
+
+    3.1 Com NPM:
+    ```bash
+    npm i
+    ```
+
+    3.2 Com Yarn:
+    ```bash
+    yarn i
+    ```
+
+4. Execute o aplicativo
+
+```bash
+npm run start
+```
+
+5. No terminal, escolha a melhor maneira para você acessar o app, por ex. escaneando o QR code com seu smatphone ou com Android Studio.
 
 ## Desenvolvedores:
-Isabela T Vitek, 
 Guilherme Staciaki,
+Isabela Taques Vitek, 
 Lígia Falcão N. Miranda,
-Vinícius,
+Vinicius Cesar de Oliveira,

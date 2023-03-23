@@ -14,6 +14,7 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <Text>O Jogo</Text>
+      <Link href="/login">Login</Link>
       <Button onPress={register} title="Cadastrar" />
       <StatusBar style="auto" />
       <Link href="/company">Empresas</Link>
