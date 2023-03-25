@@ -21,9 +21,11 @@ export default function Index() {
 
   return (
     <ScrollView>
+    <Text style={styles.title}>Cadastrar</Text>
     <KeyboardAvoidingView behavior={'padding'}
       style={styles.container}>
         
+
       <View style={styles.content}>
         <TextInput style={styles.input} placeholder='Nome' />
         <TextInput style={styles.input} placeholder='Cnpj' />

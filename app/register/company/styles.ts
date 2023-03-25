@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       paddingBottom: 50,
-      paddingTop: 50
+      paddingTop: 30
     },
     logo: {
       flex: 1
@@ -20,6 +20,19 @@ const styles = StyleSheet.create({
         padding: 20,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    title: {
+      color: '#252C53',
+      backgroundColor: '#FFF',
+      paddingTop: 20,
+      fontSize: 35,
+      fontWeight: 'bold',
+      textShadowColor: 'rgba(0, 0, 0, 0.1)',
+      textShadowOffset: {width: 4, height: 4},
+      textShadowRadius: 10,
+      textAlign: 'left',
+      alignItems: 'flex-start',
+      paddingLeft: '10%',
     },
     input: {
       padding: 5,
