@@ -14,7 +14,7 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <Text>Usuario</Text>
+      <Text>Em construção</Text>
       <Button onPress={home} title='voltar'></Button>
     </View>
   );
