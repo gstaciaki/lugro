@@ -1,6 +1,8 @@
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button  } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
+import { Polygon, Svg } from "react-native-svg";
+import styles from './styles';
 
 export default function Index() {
   const router = useRouter();
@@ -11,22 +13,38 @@ export default function Index() {
     });
   };
 
+  const login = () => {
+    router.push({
+      pathname: "/login"
+    })
+  }
+
   return (
     <View style={styles.container}>
-      <Text>O Jogo</Text>
-      <Link href="/login">Login</Link>
-      <Button onPress={register} title="Cadastrar" />
+
+      <Svg height="100%" width="100%" viewBox="0 25 100 100" style={{ position: 'absolute' }}>
+        <Polygon
+          points="0,0 100,0 100,55 75,75 0,60"
+          fill="#8870E6"
+        />
+      </Svg>
+
+      <View style={styles.logoContainer}>
+        <Image source={require("../assets/LugRo_logo.png")}></Image>
+      </View>
+
+      <View style={styles.buttonContainer}>
+
+        <TouchableOpacity style={styles.loginButton} onPress={login}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.registerButton} onPress={register}>
+          <Text style={styles.buttonText}>Registrar</Text>
+        </TouchableOpacity>
+      </View>
+
       <StatusBar style="auto" />
-      <Link href="/company">Empresas</Link>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
