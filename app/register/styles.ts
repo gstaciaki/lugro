@@ -3,11 +3,9 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#FFF',
+      backgroundColor: '#EEEFFD',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingBottom: 50,
-      paddingTop: 50
     },
     logo: {
       flex: 1
@@ -71,6 +69,19 @@ const styles = StyleSheet.create({
       shadowOffset: {width: -4, height: 4},
       shadowOpacity: 0.2,
       shadowRadius: 3,
+    },
+    logoContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+      width: '100%',
+      height: 250,
+    },
+    buttonContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '90%'
     },
 });
 
