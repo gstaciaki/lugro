@@ -1,12 +1,16 @@
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import React from 'react'
 import { TouchableOpacity, View, StyleSheet, Image, TextInput, Text, KeyboardAvoidingView, Platform } from 'react-native'
 import styles from './styles';
 
 export default function Index() {
 
+  const router = useRouter()
   const onClickSignIn = () => {
     console.log('Clicou no entrar');
+    router.push({
+      pathname: "/home",
+    });
   };
 
   return (
