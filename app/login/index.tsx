@@ -24,6 +24,7 @@ export default function Index() {
   };
 
   return (
+    <ScrollView>
      <View style={styles.header}>
 
     <Svg height="100%" width="100%" viewBox="0 25 100 100" style={{ position: 'absolute' }}>
@@ -42,6 +43,7 @@ export default function Index() {
         </KeyboardAvoidingView>
       </View>
     </View>
+    </ScrollView>
   )
 }
 
