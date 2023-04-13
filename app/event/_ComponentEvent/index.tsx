@@ -21,7 +21,7 @@ export default function ComponentEvent({ event }: ComponentEventProps) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: event.color}]}>
       <Image style={styles.image} source={event.imageSource}></Image>
 
       <View>

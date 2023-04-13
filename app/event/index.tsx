@@ -1,13 +1,13 @@
 import { Link, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native';
 import styles from './styles'
 import ComponentEvent from './_ComponentEvent';
 
 export type EventProps = {
-    imageSource: any,
-    title: string,
-    color: string
+  imageSource: any,
+  title: string,
+  color: string
 }
 
 const fakeEvents: EventProps[] = [
@@ -34,20 +34,20 @@ const fakeEvents: EventProps[] = [
 ]
 
 export default function Index() {
-  
-  
-  return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={styles.container}>
-        <View style={styles.commentContainer}>
-
-        {fakeEvents.map((event, index) => 
-            <ComponentEvent key={index} event={event}/>
-          )}
-          
-        </View>
+  const renderItem = ({ item }: { item: EventProps }) => {
+    return (
+      <View style={styles.commentContainer}>
+        <ComponentEvent event={item} />
       </View>
-    </ScrollView>
+    );
+  };
+
+  return (
+    <FlatList
+      data={fakeEvents}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={renderItem}
+      contentContainerStyle={styles.container}
+    />
   );
 }
-
