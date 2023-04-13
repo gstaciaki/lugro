@@ -66,7 +66,7 @@ import React, { useState } from "react";
       },
       content: {
           flex: 1,
-          backgroundColor: '#99D14C',
+          //backgroundColor: '#99D14C',
           borderRadius: 27,
           width: '85%',
           padding: 20,

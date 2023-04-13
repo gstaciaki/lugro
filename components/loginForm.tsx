@@ -24,7 +24,7 @@ import { Link } from "expo-router";
 
           <View style={styles.switchContainer}>
             <Switch onValueChange={setRememeber} value={remember} />
-            <Text>Remember-me</Text>
+            <Text>Lembre-me</Text>
           </View>
 
           <TouchableOpacity disabled={canSubmit} style={styles.button}  onPress={() => onClickSignIn(email, password, remember)}>
