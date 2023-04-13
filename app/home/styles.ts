@@ -14,13 +14,16 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 250,
   },
+  img: {
+    position: 'absolute',
+  },
   logo: {
     flex: 1
   },
   buttonContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     width: '90%'
   },
   loginButton: {
@@ -47,7 +50,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 33
   }
-
 });
 
 export default styles;
