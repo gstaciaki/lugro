@@ -29,10 +29,10 @@ export default function Index() {
   return (
     <ScrollView>
     <View style={styles.body}>
-    <Text style={styles.title}>Cadastrar</Text>
-    <KeyboardAvoidingView behavior={'padding'}>
-      <RegisterForm onReturn={handleReturn} onSubmit={handleRegister}/>
-    </KeyboardAvoidingView>
+      <KeyboardAvoidingView behavior={'padding'}>
+      <Text style={styles.title}>Cadastrar</Text>
+        <RegisterForm onReturn={handleReturn} onSubmit={handleRegister}/>
+      </KeyboardAvoidingView>
     </View>
     </ScrollView>
   )
