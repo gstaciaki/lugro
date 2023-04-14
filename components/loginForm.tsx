@@ -42,7 +42,7 @@ import { Link } from "expo-router";
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      paddingTop: 20
+      paddingTop: 20,
     },
     content: {
         flex: 1,
@@ -61,7 +61,7 @@ import { Link } from "expo-router";
       height: 55,
       borderWidth: 1,
       borderColor: 'white',
-      width: 200,
+      width: 250,
       backgroundColor: 'white',
       borderRadius: 10,
       justifyContent: 'center',
@@ -74,7 +74,7 @@ import { Link } from "expo-router";
       height: 40,
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: 15,
+      marginTop: 5,
       marginBottom: 30,
     },
     textButton: {
@@ -83,6 +83,8 @@ import { Link } from "expo-router";
       fontWeight: 'bold'
     },
     switchContainer: {
+      margin:5,
+      padding: 5,
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",

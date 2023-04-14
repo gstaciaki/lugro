@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
     header: {
-      flex: 1,
+      minHeight: '100%',
       backgroundColor: '#EEEFFD',
       alignItems: 'center',
       justifyContent: 'center',
@@ -11,11 +11,12 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       position: 'relative',
-      width: '100%',
-      height: 250,
+      width: '50%',
+      marginTop: 20
     },
     body: {
-      flex: 1
+      flex: 1,
+      
     },
 });
 

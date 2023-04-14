@@ -27,7 +27,7 @@ export default function Index() {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#EEEFFD'}}>
     <View style={styles.body}>
       <KeyboardAvoidingView behavior={'padding'}>
       <Text style={styles.title}>Cadastrar</Text>
