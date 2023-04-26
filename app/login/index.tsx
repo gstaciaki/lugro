@@ -1,6 +1,6 @@
 import { Link, useRouter } from 'expo-router';
 import React from 'react'
-import { TouchableOpacity, View, StyleSheet, Image, TextInput, Text, KeyboardAvoidingView, Platform } from 'react-native'
+import { TouchableOpacity, View, Image, TextInput, Text, KeyboardAvoidingView, Platform, Button } from 'react-native'
 import { Polygon, Svg } from 'react-native-svg';
 import styles from './styles';
 
@@ -8,7 +8,6 @@ export default function Index() {
 
   const router = useRouter()
   const onClickSignIn = () => {
-    console.log('Clicou no entrar');
     router.push({
       pathname: "/home",
     });
@@ -35,8 +34,8 @@ export default function Index() {
 
           <TextInput style={styles.input} placeholder='Senha' />
 
-          <TouchableOpacity style={styles.button} onPress={onClickSignIn}>
-            <Text style={styles.textButton}>Entrar</Text>
+          <TouchableOpacity style={styles.button}>
+            <Button title='Entrar' color="white"  onPress={onClickSignIn}></Button>
           </TouchableOpacity>
 
           <Link href="/register">Cadastrar-se</Link>
