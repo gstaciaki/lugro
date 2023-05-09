@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     width: '90%',
-    height: '25%',
+    height: 100,
     backgroundColor: '#99D14C',
     borderRadius: 27,
     marginBottom: 36,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   registerButton: {
     width: '90%',
-    height: '25%',
+    height: 100,
     backgroundColor: '#F9ACB3',
     borderRadius: 27,
     alignItems: 'center',
