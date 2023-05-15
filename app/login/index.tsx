@@ -1,20 +1,21 @@
 import { useRouter } from 'expo-router';
 import React from 'react'
-import { View,  Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
+import { View,  Image, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { Polygon, Svg } from 'react-native-svg';
 import styles from './styles';
 import LoginForm from '../../components/loginForm'
+import useAuth from '../../hook/useAuth';
 
 export default function Index() {
+  const router = useRouter();
+  const { loading, user, login, logout } = useAuth();
 
-  const router = useRouter()
-
-  const handleSignIn  = (
+  const handleSignIn = async (
     email: string,
     password: string,
     remember: boolean
   ) => {
-    console.log("Bem-vindo de Volta!");
+    await login(email, password);
     router.push({
       pathname: "/home",
     });

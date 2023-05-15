@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Switch } from "react-native";
 import React, { useState } from "react";
 import { Link } from "expo-router";
-
   
   interface loginFormProps {
     onClickSignIn: (email: string, password: string, remember: boolean ) => void;

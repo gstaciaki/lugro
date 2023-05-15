@@ -1,11 +1,15 @@
 import { useRouter } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
-import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
+import { View, Image, TouchableOpacity, Text } from 'react-native'
 import { Polygon, Svg } from "react-native-svg";
 import styles from './styles';
 
+import firebaseConfig from "../config/firebaseConfig";
+import useFirebase from "../hook/useFirebase";
+
 export default function Index() {
   const router = useRouter();
+  const fireabseApp = useFirebase(firebaseConfig);
 
   const register = () => {
     router.push({
