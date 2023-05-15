@@ -9,7 +9,7 @@ import useFirebase from "../hook/useFirebase";
 
 export default function Index() {
   const router = useRouter();
-  const fireabseApp = useFirebase(firebaseConfig);
+  const fireabaseApp = useFirebase(firebaseConfig);
 
   const register = () => {
     router.push({

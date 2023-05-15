@@ -88,52 +88,7 @@ const styles = StyleSheet.create({
     width: '80%',
     paddingVertical: 30
   },
-  commentBlockOp1: {
-    backgroundColor: '#F9ACB3',
-    width: '100%',
-    height: 100,
-    borderRadius: 10,
-    marginBottom: 30,
-    justifyContent: 'center'
-  },
-  commentBlockOp2: {
-    backgroundColor: '#C6C9FF',
-    width: '100%',
-    height: 100,
-    borderRadius: 10,
-    marginBottom: 30,
-    justifyContent: 'center'
-  },
-  commentBlockOp3: {
-    backgroundColor: '#252C53',
-    width: '100%',
-    height: 100,
-    borderRadius: 10,
-    marginBottom: 30,
-    justifyContent: 'center'
-  },
-  commentBlockOp4: {
-    backgroundColor: '#99D14C',
-    width: '100%',
-    height: 100,
-    borderRadius: 10,
-    marginBottom: 30,
-    justifyContent: 'center'
-  },
   
-  commentText1: {
-    textAlign: 'center',
-    fontSize: 13,
-    fontWeight: '700',
-    paddingHorizontal: 50,
-  },
-  commentText2: {
-    textAlign: 'center',
-    fontSize: 13,
-    fontWeight: '700',
-    paddingHorizontal: 50,
-    color: '#fff'
-  }
 });
 
 export default styles
