@@ -4,11 +4,11 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { EventProps } from "..";
+import { Event } from "..";
 import styles from "./styles";
 
 interface ComponentEventProps {
-  event: EventProps;
+  event: Event;
 }
 
 export default function ComponentEvent({ event }: ComponentEventProps) {
@@ -21,14 +21,14 @@ export default function ComponentEvent({ event }: ComponentEventProps) {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: event.color}]}>
+    <View style={[styles.container, { backgroundColor: '#F9ACB3'}]}>
       <Image style={styles.image} source={event.imageSource}></Image>
 
       <View>        
           <Text style={styles.title}>{event.title}</Text>
 
         <TouchableOpacity onPress={onPress}>
-          <Text style={styles.buttonText}>Sobre a empresa</Text>
+          <Text style={styles.buttonText}>Ver mais..</Text>
         </TouchableOpacity>
       </View>
     </View>
