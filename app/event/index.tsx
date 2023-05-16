@@ -1,6 +1,6 @@
 import { Link, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native';
+import { Button, Image, StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native';
 import styles from './styles'
 import ComponentEvent from './_ComponentEvent';
 

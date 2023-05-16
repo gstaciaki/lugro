@@ -24,10 +24,8 @@ export default function ComponentEvent({ event }: ComponentEventProps) {
     <View style={[styles.container, { backgroundColor: event.color}]}>
       <Image style={styles.image} source={event.imageSource}></Image>
 
-      <View>
-        
+      <View>        
           <Text style={styles.title}>{event.title}</Text>
-        
 
         <TouchableOpacity onPress={onPress}>
           <Text style={styles.buttonText}>Sobre a empresa</Text>
