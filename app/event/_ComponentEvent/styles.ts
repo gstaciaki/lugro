@@ -28,6 +28,17 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#fff'
   },
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+  },
+  button: {
+    borderRadius: 5,
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
 export default styles;
