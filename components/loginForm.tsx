@@ -6,13 +6,7 @@ import { Link } from "expo-router";
     onClickSignIn: (email: string, password: string, remember: boolean ) => void;
   }
 
-  export default function loginForm({ onClickSignIn }: loginFormProps) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [remember, setRememeber] = useState(true);
-  
-    const canSubmit = email.length === 0 || password.length === 0;
-
+ 
 export default function LoginForm({ onClickSignIn }: loginFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,18 +44,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 20,
   },
-  content: {
-      flex: 1,
-      // backgroundColor: '#99D14C',
-      borderRadius: 27,
-      width: '85%',
-      height: '55%',
-      marginTop: 50,
-      marginBottom: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingTop: 20,
-    },
     content: {
         flex: 1,
         borderRadius: 27,
