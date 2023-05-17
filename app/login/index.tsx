@@ -1,20 +1,31 @@
 import { useRouter } from 'expo-router';
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { View,  Image, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { Polygon, Svg } from 'react-native-svg';
 import styles from './styles';
 import LoginForm from '../../components/loginForm'
 import useAuth from '../../hook/useAuth';
+import { AuthContext} from '../../context/AuthContext';
+
 
 export default function Index() {
   const router = useRouter();
   const { loading, user, login, logout } = useAuth();
+
+  const authContext = useContext(AuthContext);
+
+  const [token, setToken] = useState(0);
+  const context = {
+    token,
+    setToken,
+  };
 
   const handleSignIn = async (
     email: string,
     password: string,
     remember: boolean
   ) => {
+    authContext.setToken(Math.floor(Math.random() * 100) + 1)
     await login(email, password);
     router.push({
       pathname: "/home",
@@ -22,6 +33,7 @@ export default function Index() {
   };
 
   return (
+    <AuthContext.Provider value={context}>
     <ScrollView style={{backgroundColor: '#EEEFFD'}}>
      <View style={styles.header}>
 
@@ -40,6 +52,7 @@ export default function Index() {
       </View>
     </View>
     </ScrollView>
+    </AuthContext.Provider>
   )
 }
 

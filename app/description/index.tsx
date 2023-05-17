@@ -1,25 +1,26 @@
-import { Link, useRouter } from 'expo-router';
+import { Link, useRouter, useSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Button, FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles'
 import _ComponentComment from './_ComponentComment';
 import useCollection from '../../hook/useCollection';
 import { Comment, Event } from '../../hook/useCollection';
+import useDocument from '../../hook/useDocument';
 
 export default function Index() {
 
-  const { data: commentsData, loading: commentsLoading } = useCollection('comments');
-  const { data: eventData, loading: eventLoading } = useCollection('events');
+  const {eventId} = useSearchParams()
+
+  const { data: event, loading: eventLoading } = useDocument('events', eventId as string);
+  const { data: commentsData, loading: commentsLoading } = useCollection(`events/${eventId}/comments`);
 
   if (commentsLoading || eventLoading) {
     return <View style={styles.container}><Text>Loading...</Text></View>;
   }
   
-  if (commentsData.length === 0) {
-    return <View style={styles.container}><Text>Nenhum comentário foi encontrado.</Text></View>;
-  }
-
-  const event = eventData[0];
+  // if (commentsData.length === 0) {
+  //   return <View style={styles.container}><Text>Nenhum comentário foi encontrado.</Text></View>;
+  // }
 
   const renderItem = ({ item }: { item: Comment }) => (
     <View style={styles.commentContainer}>
