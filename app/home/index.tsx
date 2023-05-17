@@ -5,10 +5,14 @@ import { Circle, Polygon, Svg } from "react-native-svg";
 import styles from './styles';
 import { useModal } from "../../components/ModalProvider";
 import EventForm from "../../components/EventForm";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
+
 
 export default function Index() {
   const router = useRouter();
   const modal = useModal();
+  const authContext = useContext(AuthContext);
 
   const register = () => {
     modal.show(
@@ -70,7 +74,6 @@ return (
 
       <StatusBar style="auto" />
     </View>
-  </ScrollView>
-);
 
-}
+  </ScrollView>
+);}
