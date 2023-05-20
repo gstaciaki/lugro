@@ -5,7 +5,7 @@ import { Link } from "expo-router";
   interface loginFormProps {
     onClickSignIn: (email: string, password: string, remember: boolean ) => void;
   }
-  
+
   export default function loginForm({ onClickSignIn }: loginFormProps) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -45,7 +45,6 @@ import { Link } from "expo-router";
     },
     content: {
         flex: 1,
-        // backgroundColor: '#99D14C',
         borderRadius: 27,
         width: '85%',
         height: '55%',

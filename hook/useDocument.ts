@@ -7,10 +7,19 @@ import {
   } from "firebase/firestore";
   import { useEffect, useState } from "react";
   
-  export type Book = {
-    id?: string;
+  export type Event = {
+    id?: number;
     title: string;
-    pages: number;
+    description: string;
+    imageSource: string;
+    category: string;
+  };
+
+  export type Comment = {
+    id?: number;
+    id_event: number;
+    description: string;
+    rating: number;
   };
   
   /**

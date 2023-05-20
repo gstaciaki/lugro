@@ -3,9 +3,12 @@ import { StatusBar } from 'expo-status-bar';
 import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
 import { Circle, Polygon, Svg } from "react-native-svg";
 import styles from './styles';
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
 
 export default function Index() {
   const router = useRouter();
+  const authContext = useContext(AuthContext);
 
   const register = () => {
     router.push({
@@ -47,6 +50,10 @@ return (
           <Image style={[styles.img, {top: 125, left: 298, width: 75, height: 50}]} source={require("./comida.png")} />
         </View>
       </Svg>
+    </View>
+
+    <View>
+      <Text>Action Like {authContext.token}</Text>
     </View>
 
     <View style={styles.buttonContainer}>
