@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 100,
     borderRadius: 10,
-    // marginBottom: 30,
     justifyContent: "space-around",
     alignItems:"center"
   },
@@ -30,9 +29,9 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: 'flex-end',
     alignItems: "flex-start",
-  },
+  },  
   button: {
     borderRadius: 5,
     padding: 5,

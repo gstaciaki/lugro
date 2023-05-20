@@ -10,7 +10,22 @@ interface ComponentEventProps {
   event: Event;
 }
 
+// Cores disponíveis
+const colors = ['#F9ACB3', '#C6C9FF', '#5b66A3', '#99D14C'];
+const btnColors = ['#ed7781', '#898cc7', '#283685', '#3e610e'];
+
+// Função para retornar uma cor aleatória
+let colorIndex = 0;
+const getNextColor = () => {
+  const color = colors[colorIndex];
+  const btnColor = btnColors[colorIndex];
+  colorIndex = (colorIndex + 1) % colors.length;
+  return { color, btnColor };
+};
+
 export default function ComponentEvent({ event }: ComponentEventProps) {
+  const backgroundColor = getNextColor();
+
   const router = useRouter();
   const { update, remove, data, refreshData } = useCollection<Event>("events");
   const [reload, setReload] = useState(false);
@@ -48,7 +63,7 @@ export default function ComponentEvent({ event }: ComponentEventProps) {
 
 
   return (
-    <View style={[styles.container, { backgroundColor: "#F9ACB3" }]}>
+    <View style={[styles.container, { backgroundColor: colors[colorIndex] }]}>
       <Image style={styles.image} source={event.imageSource} />
 
       <View>
@@ -59,11 +74,11 @@ export default function ComponentEvent({ event }: ComponentEventProps) {
         </TouchableOpacity>
 
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity onPress={onEdit} style={styles.button}>
+          <TouchableOpacity onPress={onEdit} style={[styles.button, { backgroundColor: btnColors[colorIndex] }]}>
             <Ionicons name="pencil" size={24} color="white" />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={onDelete} style={styles.button}>
+          <TouchableOpacity onPress={onDelete} style={[styles.button, { backgroundColor: btnColors[colorIndex] }]}>
             <Ionicons name="trash" size={24} color="white" />
           </TouchableOpacity>
         </View>
