@@ -26,18 +26,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: '#fff'
-  },
-  buttonsContainer: {
-    flexDirection: "row",
-    justifyContent: 'flex-end',
-    alignItems: "flex-start",
-  },  
-  button: {
-    borderRadius: 5,
-    padding: 5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  }
 });
 
 export default styles;

@@ -8,7 +8,18 @@ const styles = StyleSheet.create({
   commentContainer: {
     width: '80%',
     paddingVertical: 30
-  }
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: 'flex-end',
+    alignItems: "flex-start",
+  },  
+  button: {
+    borderRadius: 5,
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
 export default styles
