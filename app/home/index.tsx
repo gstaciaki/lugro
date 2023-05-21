@@ -1,18 +1,19 @@
 import { useRouter } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
-import { View, Image, TouchableOpacity, Text, ScrollView } from 'react-native'
+import { View, Image, TouchableOpacity, Text, ScrollView, Alert } from 'react-native'
 import { Circle, Polygon, Svg } from "react-native-svg";
 import styles from './styles';
 import { useModal } from "../../components/ModalProvider";
 import EventForm from "../../components/EventForm";
-import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
+import useCollection from "../../hook/useCollection";
+import { EventProps } from '../../@types/Event'
 
 
 export default function Index() {
   const router = useRouter();
   const modal = useModal();
-  const authContext = useContext(AuthContext);
+  const { create, refreshData } = useCollection<Event>("events");
 
   const register = () => {
     modal.show(
@@ -20,9 +21,39 @@ export default function Index() {
     )
   };
 
-  const handleSubmit = (titulo: string, descricao: string, local: string, data: string, categoria: string) => {
-    console.log(titulo, descricao, local, data, categoria);
+  interface Event {
+    title: string;
+    description: string;
+    date: string;
+    local: string;
+    category: string;
   }
+
+  const handleSubmit = async (
+    title: string,
+    description: string,
+    local: string,
+    date: string,
+    category: string
+  ) => {
+    try {
+      const eventData = 
+        {
+          title: title,
+          description: description,
+          local: local,
+          date: date,
+          category: category
+        };
+      
+      const newEvent: Event = eventData;
+      await create( newEvent );
+      await refreshData();
+      modal.hide();
+    } catch (error: any) {
+      Alert.alert("Falha ao criar evento", error.toString());
+    }
+  };
 
   const event = () => {
     router.push({

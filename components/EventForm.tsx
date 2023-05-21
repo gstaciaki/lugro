@@ -14,7 +14,11 @@ interface Event {
 }
 
 interface EventFormEditProps {
-  onSubmit: (event: Event) => void;
+  onSubmit: (title: string,
+    description: string,
+    local: string,
+    date: string,
+    category: string) => void;
 }
 
 export default function EventFormEdit({ onSubmit }: EventFormEditProps) {
@@ -93,7 +97,7 @@ export default function EventFormEdit({ onSubmit }: EventFormEditProps) {
       </View>
 
       <View style={styles.buttonArea}>
-        <Button title="Salvar" onPress={saveEvent} />
+        <Button title="Salvar" onPress={() => onSubmit(title,description,local,date,category)} />        
         <Button title="Fechar" onPress={() => modal.hide()} />
       </View>
     </ScrollView>
