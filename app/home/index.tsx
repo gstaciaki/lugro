@@ -7,7 +7,6 @@ import { useModal } from "../../components/ModalProvider";
 import EventForm from "../../components/EventForm";
 import { useContext } from "react";
 import useCollection from "../../hook/useCollection";
-import { EventProps } from '../../@types/Event'
 
 
 export default function Index() {
