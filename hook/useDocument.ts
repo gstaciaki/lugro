@@ -11,7 +11,7 @@ import {
     id?: string;
     title: string;
     description: string;
-    imageSource: string;
+    // imageSource: string;
     category: string;
     local:string;
     date:string;

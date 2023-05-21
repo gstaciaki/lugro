@@ -1,50 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert, Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import SelectDropdown from 'react-native-select-dropdown';
 import { useModal } from "./ModalProvider";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useCollection from "../hook/useCollection";
+import SelectDropdown from "react-native-select-dropdown";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-interface Event {
-  title: string;
-  description: string;
-  date: string;
-  local: string;
-  category: string;
-}
-
-interface EventEditFormProps {
-  onSubmit: (event: Event) => void;
-}
-
-export default function EventEditForm({ onSubmit }: EventEditFormProps) {
-  const { data, create, refreshData } = useCollection<Event>("events");
-
-  const categories = ['Cervejada', 'Panka', 'Show', 'Lutas', 'Encontro de carros'];
+export default function EventEditForm({ eventId, onSubmit }) {
   const modal = useModal();
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [local, setLocal] = useState('');
-  const [date, setDate] = useState('');
-  const [category, setCategory] = useState('');
+  const { data, update } = useCollection(`events/${eventId}`);
+  const categories = ['Cervejada', 'Panka', 'Show', 'Lutas', 'Encontro de carros'];
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
   const showDatePicker = () => setDatePickerVisibility(true);
   const hideDatePicker = () => setDatePickerVisibility(false);
 
-  const handleConfirm = (selectedDate: Date) => {
-    const formattedDate = selectedDate.toLocaleDateString('pt-BR');
-    setDate(formattedDate);
-    hideDatePicker();
-  };
+  const [event, setEvent] = useState({
+    title: "",
+    description: "",
+    date: "",
+    local: "",
+    category: ""
+  });
+
+  useEffect(() => {
+    if (data) {
+      const { title, description, date, local, category } = data;
+      setEvent({ title, description, date, local, category });
+    }
+  }, [data]);
 
   const saveEvent = async () => {
     try {
-      await create({ title, description, local, date, category });
-      await refreshData();
-      modal.hide();
+      await update(eventId, event);
+      onSubmit();
     } catch (error: any) {
-      Alert.alert("Falha ao criar evento", error.toString());
+      Alert.alert("Falha ao salvar evento", error.toString());
     }
   };
 
@@ -52,38 +41,55 @@ export default function EventEditForm({ onSubmit }: EventEditFormProps) {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.field}>
         <Text style={styles.label}>Título</Text>
-        <TextInput style={styles.input} onChangeText={setTitle} />
+        <TextInput
+          style={styles.input}
+          onChangeText={(text) => setEvent({ ...event, title: text })}
+          value={event.title}
+        />
       </View>
 
       <View style={styles.field}>
         <Text style={styles.label}>Descrição do evento</Text>
-        <TextInput style={styles.input} onChangeText={setDescription} />
+        <TextInput
+          style={styles.input}
+          onChangeText={(text) => setEvent({ ...event, description: text })}
+          value={event.description}
+        />
       </View>
 
       <View style={styles.field}>
         <Text style={styles.label}>Data</Text>
-        <TextInput style={styles.input}>{date}</TextInput>
-        <Button title="Escolher data" onPress={showDatePicker} />
+        <TextInput
+          style={styles.input}
+          onFocus={showDatePicker}
+          value={event.date}
+        />
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
           mode="date"
-          onConfirm={handleConfirm}
+          onConfirm={(date) => {
+            setEvent({ ...event, date: date.toISOString() });
+            hideDatePicker();
+          }}
           onCancel={hideDatePicker}
-          pickerContainerStyleIOS={styles.datePicker}
         />
       </View>
 
       <View style={styles.field}>
         <Text style={styles.label}>Local</Text>
-        <TextInput style={styles.input} onChangeText={setLocal} />
+        <TextInput
+          style={styles.input}
+          onChangeText={(text) => setEvent({ ...event, local: text })}
+          value={event.local}
+        />
       </View>
 
       <View style={styles.field}>
         <Text style={styles.label}>Categoria</Text>
         <SelectDropdown
           data={categories}
-          onSelect={(category) => setCategory(category)}
-          defaultButtonText='Selecione uma opção'
+          onSelect={(text) => setEvent({ ...event, category: text })}
+          defaultButtonText="Selecione uma opção"
           buttonStyle={styles.dropdownBtn}
           buttonTextStyle={styles.dropdownTxt}
           rowStyle={styles.dropdownRow}
@@ -103,55 +109,55 @@ export default function EventEditForm({ onSubmit }: EventEditFormProps) {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   field: {
     marginBottom: 25,
   },
   label: {
     marginBottom: 8,
-    marginLeft: 5
+    marginLeft: 5,
   },
   input: {
     padding: 5,
     height: 50,
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: "black",
     width: 250,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   dropdownBtn: {
-    width: '90%',
+    width: "90%",
     height: 50,
-    backgroundColor: '#444',
+    backgroundColor: "#444",
     borderRadius: 8,
   },
   dropdownTxt: {
-    color: '#FFF',
-    textAlign: 'center',
-    fontWeight: 'bold',
+    color: "#FFF",
+    textAlign: "center",
+    fontWeight: "bold",
   },
   dropdownRow: {
-    backgroundColor: '#444',
-    borderBottomColor: '#C5C5C5',
+    backgroundColor: "#444",
+    borderBottomColor: "#C5C5C5",
   },
   dropdownRowTxt: {
-    color: '#FFF',
-    textAlign: 'center',
-    fontWeight: 'bold',
+    color: "#FFF",
+    textAlign: "center",
+    fontWeight: "bold",
   },
   dropdownSelectedRow: {
-    backgroundColor: 'rgba(255,255,255,0.2)'
+    backgroundColor: "rgba(255,255,255,0.2)",
   },
   buttonArea: {
-    width: '100%',
+    width: "100%",
     flexDirection: "row",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
   },
   datePicker: {
-    backgroundColor: 'black'
-  }
+    backgroundColor: "black",
+  },
 });

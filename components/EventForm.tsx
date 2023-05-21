@@ -13,7 +13,7 @@ interface Event {
   category: string;
 }
 
-interface EventFormEditProps {
+interface EventFormProps {
   onSubmit: (title: string,
     description: string,
     local: string,
@@ -21,7 +21,7 @@ interface EventFormEditProps {
     category: string) => void;
 }
 
-export default function EventFormEdit({ onSubmit }: EventFormEditProps) {
+export default function EventForm({ onSubmit }: EventFormProps) {
   const { data, create, refreshData } = useCollection<Event>("events");
 
   const categories = ['Cervejada', 'Panka', 'Show', 'Lutas', 'Encontro de carros'];
