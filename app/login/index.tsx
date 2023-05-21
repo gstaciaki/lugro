@@ -31,7 +31,7 @@ export default function Index() {
     });
   };
 
-  if(!login){
+  if(login.length > 0){
     return (
       <ScrollView style={{backgroundColor: '#EEEFFD'}}>
        <View style={styles.header}>

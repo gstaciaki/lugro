@@ -3,13 +3,14 @@ import { StatusBar } from 'expo-status-bar';
 import { View, Image, TouchableOpacity, Text } from 'react-native'
 import { Polygon, Svg } from "react-native-svg";
 import styles from './styles';
-
+import useAuth from '../hook/useAuth';
 import firebaseConfig from "../config/firebaseConfig";
 import useFirebase from "../hook/useFirebase";
 
 export default function Index() {
   const router = useRouter();
   const fireabaseApp = useFirebase(firebaseConfig);
+  const { loading, user, login, logout } = useAuth();
 
   const register = () => {
     router.push({
@@ -17,10 +18,16 @@ export default function Index() {
     });
   };
 
-  const login = () => {
-    router.push({
-      pathname: "/login"
-    })
+  const loginAction = () => {
+    if(user){
+      router.push({
+        pathname: "/home"
+      })
+    } else {
+      router.push({
+        pathname: "/login"
+      })
+    }
   }
 
   return (
@@ -39,7 +46,7 @@ export default function Index() {
 
       <View style={styles.buttonContainer}>
 
-        <TouchableOpacity style={styles.loginButton} onPress={login}>
+        <TouchableOpacity style={styles.loginButton} onPress={loginAction}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
