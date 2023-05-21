@@ -8,15 +8,17 @@ import {
   import { useEffect, useState } from "react";
   
   export type Event = {
-    id?: number;
+    id?: string;
     title: string;
     description: string;
     imageSource: string;
     category: string;
+    local:string;
+    date:string;
   };
 
   export type Comment = {
-    id?: number;
+    id?: string;
     id_event: number;
     description: string;
     rating: number;

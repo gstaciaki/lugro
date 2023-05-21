@@ -6,43 +6,44 @@ import { Link } from "expo-router";
     onClickSignIn: (email: string, password: string, remember: boolean ) => void;
   }
 
-  export default function loginForm({ onClickSignIn }: loginFormProps) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [remember, setRememeber] = useState(true);
-  
-    const canSubmit = email.length === 0 || password.length === 0;
+ 
+export default function LoginForm({ onClickSignIn }: loginFormProps) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRememeber] = useState(true);
 
-    return (
-      <View style={styles.container}>
-        <View style={styles.content}>
-        
-          <TextInput style={styles.input} placeholder='E-mail' value={email} onChangeText={setEmail} />
+  const canSubmit = email.length === 0 || password.length === 0;
 
-          <TextInput style={styles.input} placeholder='Senha' value={password} onChangeText={setPassword} />
+  return (
+    <View style={styles.container}>
+      <View style={styles.content}>
+      
+        <TextInput style={styles.input} placeholder='E-mail' value={email} onChangeText={setEmail} />
 
-          <View style={styles.switchContainer}>
-            <Switch onValueChange={setRememeber} value={remember} />
-            <Text>Lembre-me</Text>
-          </View>
+        <TextInput style={styles.input} placeholder='Senha' value={password} onChangeText={setPassword} />
 
-          <TouchableOpacity disabled={canSubmit} style={styles.button}  onPress={() => onClickSignIn(email, password, remember)}>
-            <Text style={styles.textButton}>Entrar</Text>
-          </TouchableOpacity>
-
-          <Link href="/register">Cadastrar-se</Link>
+        <View style={styles.switchContainer}>
+          <Switch onValueChange={setRememeber} value={remember} />
+          <Text>Lembre-me</Text>
         </View>
+
+        <TouchableOpacity disabled={canSubmit} style={styles.button}  onPress={() => onClickSignIn(email, password, remember)}>
+          <Text style={styles.textButton}>Entrar</Text>
+        </TouchableOpacity>
+
+        <Link href="/register">Cadastrar-se</Link>
       </View>
-    );
-  }
-  
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingTop: 20,
-    },
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 20,
+  },
     content: {
         flex: 1,
         borderRadius: 27,
