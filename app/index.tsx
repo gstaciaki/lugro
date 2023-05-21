@@ -6,6 +6,8 @@ import styles from './styles';
 import useAuth from '../hook/useAuth';
 import firebaseConfig from "../config/firebaseConfig";
 import useFirebase from "../hook/useFirebase";
+import ThemeProvider from "../context/themeContext";
+import ThemeSelector from "../components/ThemeSelector";
 
 export default function Index() {
   const router = useRouter();
@@ -31,6 +33,9 @@ export default function Index() {
   }
 
   return (
+
+    <ThemeProvider>
+      <ThemeSelector>
     <View style={styles.container}>
 
       <Svg height="100%" width="100%" viewBox="0 25 100 100" style={{ position: 'absolute' }}>
@@ -57,5 +62,7 @@ export default function Index() {
 
       <StatusBar style="auto" />
     </View>
+      </ThemeSelector>
+    </ThemeProvider>
   );
 }
