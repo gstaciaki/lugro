@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Theme, ThemeContextType } from '../@types/theme';
+import { Text } from 'react-native';
 
 interface ThemeProviderProps {
   children: React.ReactNode;
