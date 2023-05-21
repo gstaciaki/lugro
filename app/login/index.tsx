@@ -9,6 +9,7 @@ import useAuth from '../../hook/useAuth';
 
 
 
+
 export default function Index() {
   const router = useRouter();
   const { loading, user, login, logout } = useAuth();
