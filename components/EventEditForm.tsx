@@ -4,92 +4,95 @@ import { useModal } from "./ModalProvider";
 import useCollection from "../hook/useCollection";
 import SelectDropdown from "react-native-select-dropdown";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import useDocument from "../hook/useDocument";
+import { EventProps } from "../@types/Event";
 
-export default function EventEditForm({ eventId, onSubmit }) {
+interface EventEditFormProps {
+  eventId: string,
+  onSubmit: (
+    id: string,
+    title: string,
+    description: string,
+    local: string,
+    date: string,
+    category: string) => void;
+}
+
+export default function EventEditForm({ eventId, onSubmit } : EventEditFormProps) {
   const modal = useModal();
-  const { data, update } = useCollection(`events/${eventId}`);
+  const { data, upsert, loading } = useDocument<EventProps>('events', eventId);
+
   const categories = ['Cervejada', 'Panka', 'Show', 'Lutas', 'Encontro de carros'];
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [local, setLocal] = useState('');
+  const [date, setDate] = useState('');
+  const [category, setCategory] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
   const showDatePicker = () => setDatePickerVisibility(true);
   const hideDatePicker = () => setDatePickerVisibility(false);
 
-  const [event, setEvent] = useState({
-    title: "",
-    description: "",
-    date: "",
-    local: "",
-    category: ""
-  });
+  const handleConfirm = (selectedDate: Date) => {
+    const formattedDate = selectedDate.toLocaleDateString('pt-BR');
+    setDate(formattedDate);
+    hideDatePicker();
+  };
 
   useEffect(() => {
-    if (data) {
-      const { title, description, date, local, category } = data;
-      setEvent({ title, description, date, local, category });
+    if(data){
+      setTitle(data.title)
+      setDescription(data.description)
+      setLocal(data.local)
+      setDate(data.date)
+      setCategory(data.category)
+      console.log(data);
     }
-  }, [data]);
+  }, [data])
 
-  const saveEvent = async () => {
-    try {
-      await update(eventId, event);
-      onSubmit();
-    } catch (error: any) {
-      Alert.alert("Falha ao salvar evento", error.toString());
-    }
-  };
+  if(loading){
+    return (
+      <Text>Loading</Text>
+    )
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.field}>
         <Text style={styles.label}>Título</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setEvent({ ...event, title: text })}
-          value={event.title}
-        />
+        <TextInput style={styles.input} onChangeText={setTitle} value={title} />
       </View>
 
       <View style={styles.field}>
         <Text style={styles.label}>Descrição do evento</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setEvent({ ...event, description: text })}
-          value={event.description}
-        />
+        <TextInput style={styles.input} onChangeText={setDescription} value={description}/>
       </View>
 
       <View style={styles.field}>
         <Text style={styles.label}>Data</Text>
-        <TextInput
-          style={styles.input}
-          onFocus={showDatePicker}
-          value={event.date}
-        />
+        <TextInput style={styles.input} value={date}>{date}</TextInput>
+        <Button title="Escolher data" onPress={showDatePicker} />
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
           mode="date"
-          onConfirm={(date) => {
-            setEvent({ ...event, date: date.toISOString() });
-            hideDatePicker();
-          }}
+          onConfirm={handleConfirm}
           onCancel={hideDatePicker}
+          pickerContainerStyleIOS={styles.datePicker}
         />
       </View>
 
       <View style={styles.field}>
         <Text style={styles.label}>Local</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => setEvent({ ...event, local: text })}
-          value={event.local}
-        />
+        <TextInput style={styles.input} onChangeText={setLocal} value={local} />
       </View>
 
       <View style={styles.field}>
-        <Text style={styles.label}>Categoria</Text>
+        <Text style={styles.label} >Categoria</Text>
         <SelectDropdown
           data={categories}
-          onSelect={(text) => setEvent({ ...event, category: text })}
-          defaultButtonText="Selecione uma opção"
+          onSelect={(category) => setCategory(category)}
+          defaultValue={category}
+          defaultButtonText='Selecione uma opção'
           buttonStyle={styles.dropdownBtn}
           buttonTextStyle={styles.dropdownTxt}
           rowStyle={styles.dropdownRow}
@@ -99,7 +102,7 @@ export default function EventEditForm({ eventId, onSubmit }) {
       </View>
 
       <View style={styles.buttonArea}>
-        <Button title="Salvar" onPress={saveEvent} />
+        <Button title="Salvar" onPress={() => onSubmit(eventId, title,description,local,date,category)} />        
         <Button title="Fechar" onPress={() => modal.hide()} />
       </View>
     </ScrollView>

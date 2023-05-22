@@ -4,7 +4,8 @@ import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Fl
 import styles from './styles';
 import ComponentEvent from './_ComponentEvent';
 import useCollection from '../../hook/useCollection';
-import { Event } from '../../hook/useDocument';
+import { CommentProps} from "../../@types/Comment";
+import { EventProps} from "../../@types/Event";
 import { Ionicons } from "@expo/vector-icons";
 import EventEditForm from '../../components/EventEditForm';
 import { useModal } from '../../components/ModalProvider';
@@ -28,22 +29,40 @@ export default function Index() {
     modal.show(<EventEditForm eventId={eventId} onSubmit={handleSubmit} />);
   };
 
-  const handleSubmit = async (eventId: string, title: string, description: string, local: string, date: string, category: string) => {
-    try {
-      const updatedEvent = {
-        id: eventId,
-        title,
-        description,
-        local,
-        date,
-        category,
-      };
+  interface Event {
+    id: string;
+    title: string;
+    description: string;
+    date: string;
+    local: string;
+    category: string;
+  }
 
-      await update(eventId, updatedEvent);
+  const handleSubmit = async (
+    id: string,
+    title: string,
+    description: string,
+    local: string,
+    date: string,
+    category: string
+  ) => {
+    try {
+      const eventData = 
+        {
+          id: id,
+          title: title,
+          description: description,
+          local: local,
+          date: date,
+          category: category
+        };
+      
+      const newEvent: Event = eventData;
+      await update(id, newEvent);
       await refreshData();
       modal.hide();
     } catch (error: any) {
-      Alert.alert('Falha ao atualizar evento', error.toString());
+      Alert.alert("Falha ao criar evento", error.toString());
     }
   };
 

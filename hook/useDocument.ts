@@ -58,7 +58,7 @@ import {
       setLoading(true);
       const docSnap = await getDoc(docRef);
       const data = docSnap.data() as T;
-      setData(data);
+      setData({id: docSnap.id, ...data});
       setLoading(false);
       return data;
     };
