@@ -1,14 +1,13 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import Confirm from "./Confirm";
 
   
   interface registerFormProps {
-    onSubmit: (name: string, cnpj:string, address:string, number:string, 
-              cep:string, district:string, email:string, password: string ) => void;
     onReturn: () => void;
   }
   
-  export default function registerForm({ onSubmit, onReturn }: registerFormProps) {
+  export default function registerForm({ onReturn }: registerFormProps) {
     const [name, setName] = useState("");
     const [cnpj, setCnpj] = useState("");
     const [address, setAddress] = useState("");
@@ -43,9 +42,7 @@ import React, { useState } from "react";
             </TouchableOpacity>
           </View>
           <View style={{flex:1}}>
-            <TouchableOpacity style={styles.signInbutton} onPress={() => onSubmit(name, cnpj, address, number, cep, district, email, password)}>
-              <Text style={styles.textButton}>Cadastrar</Text>
-            </TouchableOpacity>
+          <Confirm name={name} cnpj={cnpj} address={address} number={number} cep={cep} district={district} email={email} password={password}/>
           </View>
         </View>
       </View>
@@ -110,21 +107,6 @@ import React, { useState } from "react";
     returnButton: {
       display: 'flex',
       backgroundColor: '#F9D415',
-      borderRadius: 15,
-      width: '90%',
-      height: 40,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginTop: 30,
-      marginBottom: 30,
-      shadowColor: '#171717',
-      shadowOffset: {width: -4, height: 4},
-      shadowOpacity: 0.2,
-      shadowRadius: 3,
-    },
-    signInbutton: {
-      display: 'flex',
-      backgroundColor: '#99D14C',
       borderRadius: 15,
       width: '90%',
       height: 40,
