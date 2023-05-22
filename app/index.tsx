@@ -35,7 +35,7 @@ export default function Index() {
   return (
 
     <ThemeProvider>
-      <ThemeSelector>
+      {/* <ThemeSelector> */}
     <View style={styles.container}>
 
       <Svg height="100%" width="100%" viewBox="0 25 100 100" style={{ position: 'absolute' }}>
@@ -53,7 +53,7 @@ export default function Index() {
 
         <TouchableOpacity style={styles.loginButton} onPress={loginAction}>
           <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> 
 
         <TouchableOpacity style={styles.registerButton} onPress={register}>
           <Text style={styles.buttonText}>Registrar</Text>
@@ -62,7 +62,7 @@ export default function Index() {
 
       <StatusBar style="auto" />
     </View>
-      </ThemeSelector>
+      {/* </ThemeSelector> */}
     </ThemeProvider>
   );
 }
