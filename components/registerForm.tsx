@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import Confirm from "./Confirm";
+import ThemeSelector from "../components/ThemeSelector";
+import { useTheme } from "../context/themeContext";
 
   
   interface registerFormProps {
@@ -16,28 +18,32 @@ import Confirm from "./Confirm";
     const [district, setDistrict] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { theme, toggleTheme } = useTheme();
+    const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
+    const bgInputColor = theme == 'dark' ? '#e6e6e6' : 'white';
+    const bgReturnBtn = theme == 'dark' ? '#ffe03c' : '#F9D415';
   
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: bgColor}]}>
         <View style={styles.content}>
-        <TextInput style={styles.input} placeholder='Nome' value={name} onChangeText={setName} />
-        <TextInput style={styles.input} placeholder='Cnpj' keyboardType = 'numeric' value={cnpj} onChangeText={setCnpj} />
-        <TextInput style={styles.input} placeholder='Endereço' value={address} onChangeText={setAddress} />
+        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Nome' value={name} onChangeText={setName} />
+        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Cnpj' keyboardType = 'numeric' value={cnpj} onChangeText={setCnpj} />
+        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Endereço' value={address} onChangeText={setAddress} />
         <View style={{flexDirection:"row"}}>
           <View style={{flex:1}}>
-              <TextInput style={styles.inputInside} placeholder='Número' keyboardType = 'numeric' value={number} onChangeText={setNumber} />
+              <TextInput style={[styles.inputInside, , {backgroundColor: bgInputColor}]} placeholder='Número' keyboardType = 'numeric' value={number} onChangeText={setNumber} />
           </View>
           <View style={{flex:3}}>
-              <TextInput style={styles.inputInside} placeholder='CEP' keyboardType = 'numeric' value={cep} onChangeText={setCep}/>
+              <TextInput style={[styles.inputInside, , {backgroundColor: bgInputColor}]} placeholder='CEP' keyboardType = 'numeric' value={cep} onChangeText={setCep}/>
           </View>
         </View>
-        <TextInput style={styles.input} placeholder='Bairro' value={district} onChangeText={setDistrict} />
-        <TextInput style={styles.input} placeholder='E-mail' value={email} onChangeText={setEmail} />
-        <TextInput style={styles.input} placeholder='Senha' value={password} onChangeText={setPassword} />
+        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Bairro' value={district} onChangeText={setDistrict} />
+        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='E-mail' value={email} onChangeText={setEmail} />
+        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Senha' value={password} onChangeText={setPassword} />
 
         <View style={{flexDirection:"row", marginLeft: "5%"}}>
           <View style={{flex:1}}>
-            <TouchableOpacity style={styles.returnButton} onPress={() => onReturn()}>
+            <TouchableOpacity style={[styles.returnButton, {backgroundColor:  bgReturnBtn}]} onPress={() => onReturn()}>
               <Text style={styles.textButton}>Voltar</Text>
             </TouchableOpacity>
           </View>
@@ -46,6 +52,8 @@ import Confirm from "./Confirm";
           </View>
         </View>
       </View>
+      <ThemeSelector>
+      </ThemeSelector>
       </View>
     );
   }

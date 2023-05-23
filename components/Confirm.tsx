@@ -1,10 +1,13 @@
 import { View, Text, TouchableOpacity, Alert, StyleSheet } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
-
+import { useTheme } from "../context/themeContext";
 
 export default function Confirm(data:any) {
   const router = useRouter();
+  const { theme } = useTheme();
+  const bgRegisterBtn = theme == 'dark' ? '#03DAC6' : '#99D14C';  
+
   const handleAlert = (data: any) => {
     Alert.alert("Confirmar", "Tem certeza que quer fazer esse cadastro? ", [
       {
@@ -23,7 +26,7 @@ export default function Confirm(data:any) {
   };
 
   return (
-  <TouchableOpacity style={styles.signInbutton} onPress={() => handleAlert(data)}>
+  <TouchableOpacity style={[styles.signInbutton, {backgroundColor: bgRegisterBtn}]} onPress={() => handleAlert(data)}>
     <Text style={styles.textButton}>Cadastrar</Text>
   </TouchableOpacity>
   );
