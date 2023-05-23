@@ -5,7 +5,7 @@ import useCollection from "../hook/useCollection";
 import SelectDropdown from "react-native-select-dropdown";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useDocument from "../hook/useDocument";
-import { EventProps } from "../@types/Event";
+import { EventProps } from "../types/Event";
 
 interface EventEditFormProps {
   eventId: string,

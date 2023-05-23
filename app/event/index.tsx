@@ -4,8 +4,8 @@ import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Fl
 import styles from './styles';
 import ComponentEvent from './_ComponentEvent';
 import useCollection from '../../hook/useCollection';
-import { CommentProps} from "../../@types/Comment";
-import { EventProps} from "../../@types/Event";
+import { CommentProps} from "../../types/Comment";
+import { EventProps} from "../../types/Event";
 import { Ionicons } from "@expo/vector-icons";
 import EventEditForm from '../../components/EventEditForm';
 import { useModal } from '../../components/ModalProvider';
