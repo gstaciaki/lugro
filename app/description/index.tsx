@@ -6,6 +6,9 @@ import _ComponentComment from './_ComponentComment';
 import useCollection from '../../hook/useCollection';
 import { Comment, Event } from '../../hook/useCollection';
 import useDocument from '../../hook/useDocument';
+import { useTheme } from '../../context/themeContext';
+import ThemeSelector from '../../components/ThemeSelector';
+
 
 
 
@@ -14,6 +17,9 @@ export default function Index() {
 
   const { data: event, loading: eventLoading } = useDocument('events', eventId as string);
   const { data: commentsData, loading: commentsLoading } = useCollection(`events/${eventId}/comments`);
+
+  const { theme } = useTheme();
+  const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
 
   if (commentsLoading || eventLoading) {
     return <View style={styles.container}><Text>Loading...</Text></View>;
@@ -27,7 +33,9 @@ export default function Index() {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={styles.container}>
+      <ThemeSelector>
+      </ThemeSelector>
+      <View style={[styles.container, {backgroundColor: bgColor}]}>
         {event ? (
           <>
             <View style={styles.imageContainer}>

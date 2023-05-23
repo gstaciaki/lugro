@@ -17,5 +17,6 @@ export default function ComponentComment({ comment }: ComponentCommentProps) {
       <View style={styles.commentBlock}>
         <Text style={styles.commentText}>{comment.description}</Text>
       </View>
+      
     );
 }

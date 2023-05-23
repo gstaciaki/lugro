@@ -9,7 +9,6 @@ import { useContext } from "react";
 import useCollection from "../../hook/useCollection";
 import  Confirm  from "../../components/Confirm";
 import { useTheme } from "../../context/themeContext";
-import ThemeSelector from '../../components/ThemeSelector';
 
 
 
@@ -111,8 +110,6 @@ return (
           <Text style={styles.buttonText}>Cadastrar Eventos</Text>
         </TouchableOpacity>
       </View>
-      <ThemeSelector>
-      </ThemeSelector>
       <StatusBar style="auto" />
     </View>
 
