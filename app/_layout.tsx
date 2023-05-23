@@ -9,5 +9,5 @@ export default function DefaultLayout() {
   //   }
   // } />;
 
-  return <ThemeProvider><ModalProvider><Stack /></ModalProvider> </ThemeProvider>;
+  return <ThemeProvider><ModalProvider><Stack /></ModalProvider></ThemeProvider>;
 }
