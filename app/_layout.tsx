@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
 import ModalProvider from "../components/ModalProvider";
+import ThemeProvider from "../context/themeContext";
 
 export default function DefaultLayout() {
   // return <Stack screenOptions={
@@ -8,5 +9,5 @@ export default function DefaultLayout() {
   //   }
   // } />;
 
-  return <ModalProvider><Stack /></ModalProvider>;
+  return <ThemeProvider><ModalProvider><Stack/></ModalProvider></ThemeProvider>;
 }

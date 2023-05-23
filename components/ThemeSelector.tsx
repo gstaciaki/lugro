@@ -1,25 +1,18 @@
 import React from 'react';
-import { ThemeContextType, Theme } from '../@types/theme';
-import { ThemeContext } from '../context/themeContext';
+import { useTheme } from '../context/themeContext';
+import { Text, TouchableOpacity } from 'react-native';
 
 interface ThemeSelectorProps { 
     children: React.ReactNode; 
 }
 
 const ThemeSelector: React.FC<ThemeSelectorProps> = ({ children }) => {
-    const { theme, changeTheme } = React.useContext(ThemeContext) as ThemeContextType;
+    const { theme, toggleTheme } = useTheme();
 
-    const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        changeTheme(event.target.value as Theme);
-    };
     return (
-        <div className="Theme-wrapper" data-theme={theme}>
-            <select className="Theme-toggler" name="toggleTheme" onChange={handleThemeChange}>
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-            </select>
-        {children}
-        </div>
+        <TouchableOpacity  onPress={() => toggleTheme()}>
+          <Text>{theme}</Text>
+        </TouchableOpacity>
     );
 };
 

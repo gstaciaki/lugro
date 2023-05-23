@@ -34,8 +34,6 @@ export default function Index() {
 
   return (
 
-    <ThemeProvider>
-      {/* <ThemeSelector> */}
     <View style={styles.container}>
 
       <Svg height="100%" width="100%" viewBox="0 25 100 100" style={{ position: 'absolute' }}>
@@ -62,7 +60,5 @@ export default function Index() {
 
       <StatusBar style="auto" />
     </View>
-      {/* </ThemeSelector> */}
-    </ThemeProvider>
   );
 }
