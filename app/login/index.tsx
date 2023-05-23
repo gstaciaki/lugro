@@ -5,14 +5,17 @@ import { Polygon, Svg } from 'react-native-svg';
 import styles from './styles';
 import LoginForm from '../../components/loginForm'
 import useAuth from '../../hook/useAuth';
-
-
+import { useTheme } from '../../context/themeContext';
+import ThemeSelector from '../../components/ThemeSelector';
 
 
 
 export default function Index() {
   const router = useRouter();
   const { loading, user, login, logout } = useAuth();
+  const { theme } = useTheme();
+  const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
+  const bgSvgColor = theme == 'dark' ? '#BB86FC' : '#8870E6';
 
   const [token, setToken] = useState(0);
   const context = {
@@ -33,13 +36,13 @@ export default function Index() {
 
   if(login.length > 0){
     return (
-      <ScrollView style={{backgroundColor: '#EEEFFD'}}>
-       <View style={styles.header}>
+      <ScrollView style={{backgroundColor: bgColor}}>
+       <View style={[styles.header, {backgroundColor: bgColor}]}>
   
         <Svg height="100%" width="100%" viewBox="0 27 100 100" style={{ position: 'absolute' }}>
           <Polygon
             points="0,0 100,0 100,55 75,75 0,60"
-            fill="#8870E6"
+            fill={bgSvgColor}
           />
         </Svg>
   
@@ -50,6 +53,7 @@ export default function Index() {
           </KeyboardAvoidingView>
         </View>
       </View>
+      
       </ScrollView>
     )
   }

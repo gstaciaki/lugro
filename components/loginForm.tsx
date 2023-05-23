@@ -1,6 +1,9 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Switch } from "react-native";
 import React, { useState } from "react";
 import { Link } from "expo-router";
+import ThemeSelector from "../components/ThemeSelector";
+import { useTheme } from "../context/themeContext";
+
   
   interface loginFormProps {
     onClickSignIn: (email: string, password: string, remember: boolean ) => void;
@@ -11,6 +14,10 @@ export default function LoginForm({ onClickSignIn }: loginFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRememeber] = useState(true);
+  const { theme } = useTheme();
+  const bgSvgColor = theme == 'dark' ? '#BB86FC' : '#8870E6';
+  const bgInputColor = theme == 'dark' ? '#e6e6e6' : 'white';
+
 
   const canSubmit = email.length === 0 || password.length === 0;
 
@@ -18,21 +25,18 @@ export default function LoginForm({ onClickSignIn }: loginFormProps) {
     <View style={styles.container}>
       <View style={styles.content}>
       
-        <TextInput style={styles.input} placeholder='E-mail' value={email} onChangeText={setEmail} />
+        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='E-mail' value={email} onChangeText={setEmail} />
 
-        <TextInput style={styles.input} placeholder='Senha' value={password} onChangeText={setPassword} />
+        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Senha' value={password} onChangeText={setPassword} />
 
-        <View style={styles.switchContainer}>
-          <Switch onValueChange={setRememeber} value={remember} />
-          <Text>Lembre-me</Text>
-        </View>
-
-        <TouchableOpacity disabled={canSubmit} style={styles.button}  onPress={() => onClickSignIn(email, password, remember)}>
+        <TouchableOpacity disabled={canSubmit} style={[styles.button, {backgroundColor: bgSvgColor}]}  onPress={() => onClickSignIn(email, password, remember)}>
           <Text style={styles.textButton}>Entrar</Text>
         </TouchableOpacity>
 
         <Link href="/register">Cadastrar-se</Link>
       </View>
+      <ThemeSelector>
+      </ThemeSelector>
     </View>
   );
 }
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
       height: 40,
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: 5,
+      marginTop: 15,
       marginBottom: 30,
     },
     textButton: {
