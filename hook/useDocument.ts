@@ -11,7 +11,7 @@ import {
     id?: string;
     title: string;
     description: string;
-    imageSource: string;
+    // imageSource: string;
     category: string;
     local:string;
     date:string;
@@ -58,7 +58,7 @@ import {
       setLoading(true);
       const docSnap = await getDoc(docRef);
       const data = docSnap.data() as T;
-      setData(data);
+      setData({id: docSnap.id, ...data});
       setLoading(false);
       return data;
     };

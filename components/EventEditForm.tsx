@@ -1,27 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert, Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import SelectDropdown from 'react-native-select-dropdown';
 import { useModal } from "./ModalProvider";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useCollection from "../hook/useCollection";
-
-interface Event {
-  title: string;
-  description: string;
-  date: string;
-  local: string;
-  category: string;
-}
+import SelectDropdown from "react-native-select-dropdown";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import useDocument from "../hook/useDocument";
+import { EventProps } from "../types/Event";
 
 interface EventEditFormProps {
-  onSubmit: (event: Event) => void;
+  eventId: string,
+  onSubmit: (
+    id: string,
+    title: string,
+    description: string,
+    local: string,
+    date: string,
+    category: string) => void;
 }
 
-export default function EventEditForm({ onSubmit }: EventEditFormProps) {
-  const { data, create, refreshData } = useCollection<Event>("events");
+export default function EventEditForm({ eventId, onSubmit } : EventEditFormProps) {
+  const modal = useModal();
+  const { data, upsert, loading } = useDocument<EventProps>('events', eventId);
 
   const categories = ['Cervejada', 'Panka', 'Show', 'Lutas', 'Encontro de carros'];
-  const modal = useModal();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [local, setLocal] = useState('');
@@ -38,31 +39,38 @@ export default function EventEditForm({ onSubmit }: EventEditFormProps) {
     hideDatePicker();
   };
 
-  const saveEvent = async () => {
-    try {
-      await create({ title, description, local, date, category });
-      await refreshData();
-      modal.hide();
-    } catch (error: any) {
-      Alert.alert("Falha ao criar evento", error.toString());
+  useEffect(() => {
+    if(data){
+      setTitle(data.title)
+      setDescription(data.description)
+      setLocal(data.local)
+      setDate(data.date)
+      setCategory(data.category)
+      console.log(data);
     }
-  };
+  }, [data])
+
+  if(loading){
+    return (
+      <Text>Loading</Text>
+    )
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.field}>
         <Text style={styles.label}>Título</Text>
-        <TextInput style={styles.input} onChangeText={setTitle} />
+        <TextInput style={styles.input} onChangeText={setTitle} value={title} />
       </View>
 
       <View style={styles.field}>
         <Text style={styles.label}>Descrição do evento</Text>
-        <TextInput style={styles.input} onChangeText={setDescription} />
+        <TextInput style={styles.input} onChangeText={setDescription} value={description}/>
       </View>
 
       <View style={styles.field}>
         <Text style={styles.label}>Data</Text>
-        <TextInput style={styles.input}>{date}</TextInput>
+        <TextInput style={styles.input} value={date}>{date}</TextInput>
         <Button title="Escolher data" onPress={showDatePicker} />
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
@@ -75,14 +83,15 @@ export default function EventEditForm({ onSubmit }: EventEditFormProps) {
 
       <View style={styles.field}>
         <Text style={styles.label}>Local</Text>
-        <TextInput style={styles.input} onChangeText={setLocal} />
+        <TextInput style={styles.input} onChangeText={setLocal} value={local} />
       </View>
 
       <View style={styles.field}>
-        <Text style={styles.label}>Categoria</Text>
+        <Text style={styles.label} >Categoria</Text>
         <SelectDropdown
           data={categories}
           onSelect={(category) => setCategory(category)}
+          defaultValue={category}
           defaultButtonText='Selecione uma opção'
           buttonStyle={styles.dropdownBtn}
           buttonTextStyle={styles.dropdownTxt}
@@ -93,7 +102,7 @@ export default function EventEditForm({ onSubmit }: EventEditFormProps) {
       </View>
 
       <View style={styles.buttonArea}>
-        <Button title="Salvar" onPress={saveEvent} />
+        <Button title="Salvar" onPress={() => onSubmit(eventId, title,description,local,date,category)} />        
         <Button title="Fechar" onPress={() => modal.hide()} />
       </View>
     </ScrollView>
@@ -103,55 +112,55 @@ export default function EventEditForm({ onSubmit }: EventEditFormProps) {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   field: {
     marginBottom: 25,
   },
   label: {
     marginBottom: 8,
-    marginLeft: 5
+    marginLeft: 5,
   },
   input: {
     padding: 5,
     height: 50,
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: "black",
     width: 250,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   dropdownBtn: {
-    width: '90%',
+    width: "90%",
     height: 50,
-    backgroundColor: '#444',
+    backgroundColor: "#444",
     borderRadius: 8,
   },
   dropdownTxt: {
-    color: '#FFF',
-    textAlign: 'center',
-    fontWeight: 'bold',
+    color: "#FFF",
+    textAlign: "center",
+    fontWeight: "bold",
   },
   dropdownRow: {
-    backgroundColor: '#444',
-    borderBottomColor: '#C5C5C5',
+    backgroundColor: "#444",
+    borderBottomColor: "#C5C5C5",
   },
   dropdownRowTxt: {
-    color: '#FFF',
-    textAlign: 'center',
-    fontWeight: 'bold',
+    color: "#FFF",
+    textAlign: "center",
+    fontWeight: "bold",
   },
   dropdownSelectedRow: {
-    backgroundColor: 'rgba(255,255,255,0.2)'
+    backgroundColor: "rgba(255,255,255,0.2)",
   },
   buttonArea: {
-    width: '100%',
+    width: "100%",
     flexDirection: "row",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
   },
   datePicker: {
-    backgroundColor: 'black'
-  }
+    backgroundColor: "black",
+  },
 });
