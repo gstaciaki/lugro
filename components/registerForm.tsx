@@ -23,6 +23,22 @@ import { useTheme } from "../context/themeContext";
     const bgInputColor = theme == 'dark' ? '#e6e6e6' : 'white';
     const bgReturnBtn = theme == 'dark' ? '#ffe03c' : '#F9D415';
   
+    const handleCepChange = (text: string) => {
+      setCep(text);
+
+      if(text.length === 8) {
+        fetch(`https://viacep.com.br/ws/${text}/json/`)
+        .then(response => response.json())
+        .then(data => {
+          setAddress(data.logradouro)
+          setDistrict(data.bairro)
+        })
+        .catch(error => [
+          console.log(error)   
+        ])
+      }
+    }
+
     return (
       <View style={[styles.container, {backgroundColor: bgColor}]}>
         <View style={styles.content}>
@@ -34,7 +50,7 @@ import { useTheme } from "../context/themeContext";
               <TextInput style={[styles.inputInside, , {backgroundColor: bgInputColor}]} placeholder='Número' keyboardType = 'numeric' value={number} onChangeText={setNumber} />
           </View>
           <View style={{flex:3}}>
-              <TextInput style={[styles.inputInside, , {backgroundColor: bgInputColor}]} placeholder='CEP' keyboardType = 'numeric' value={cep} onChangeText={setCep}/>
+              <TextInput style={[styles.inputInside, {backgroundColor: bgInputColor}]} placeholder='CEP' keyboardType = 'numeric' value={cep} onChangeText={handleCepChange}/>
           </View>
         </View>
         <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Bairro' value={district} onChangeText={setDistrict} />

@@ -79,6 +79,6 @@ import {
       if (precache) all();
       // eslint-disable-next-line
     }, []);
-  
+ 
     return { data, loading, create, remove, update, all, refreshData };
   }
