@@ -17,6 +17,22 @@ import Confirm from "./Confirm";
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
   
+    const handleCepChange = (text: string) => {
+      setCep(text);
+
+      if(text.length === 8) {
+        fetch(`https://viacep.com.br/ws/${text}/json/`)
+        .then(response => response.json())
+        .then(data => {
+          setAddress(data.logradouro)
+          setDistrict(data.bairro)
+        })
+        .catch(error => [
+          console.log(error)   
+        ])
+      }
+    }
+
     return (
       <View style={styles.container}>
         <View style={styles.content}>
@@ -28,7 +44,7 @@ import Confirm from "./Confirm";
               <TextInput style={styles.inputInside} placeholder='Número' keyboardType = 'numeric' value={number} onChangeText={setNumber} />
           </View>
           <View style={{flex:3}}>
-              <TextInput style={styles.inputInside} placeholder='CEP' keyboardType = 'numeric' value={cep} onChangeText={setCep}/>
+              <TextInput style={styles.inputInside} placeholder='CEP' keyboardType = 'numeric' value={cep} onChangeText={handleCepChange}/>
           </View>
         </View>
         <TextInput style={styles.input} placeholder='Bairro' value={district} onChangeText={setDistrict} />
