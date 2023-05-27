@@ -88,6 +88,11 @@ const styles = StyleSheet.create({
     width: '80%',
     paddingVertical: 30
   },
+  commentText: {
+    fontSize: 16,
+    fontWeight: '700',
+    marginTop: 5,
+  },
   
 });
 

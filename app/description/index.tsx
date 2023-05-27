@@ -1,31 +1,55 @@
-import { Link, useRouter, useSearchParams } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { Button, FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useRouter, useSearchParams } from 'expo-router';
+import { FlatList, Image, ScrollView, Alert, Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles'
 import _ComponentComment from './_ComponentComment';
 import useCollection from '../../hook/useCollection';
-import { Comment, Event } from '../../hook/useCollection';
+// import { Comment, Event } from '../../hook/useCollection';
 import useDocument from '../../hook/useDocument';
 import { useTheme } from '../../context/themeContext';
 import ThemeSelector from '../../components/ThemeSelector';
-
-
+import { useModal } from '../../components/ModalProvider';
+import { EventProps } from '../../types/Event';
+import { CommentProps } from '../../types/Comment';
+import CommentForm from '../../components/CommentForm';
 
 
 export default function Index() {
   const {eventId} = useSearchParams()
-
-  const { data: event, loading: eventLoading } = useDocument('events', eventId as string);
-  const { data: commentsData, loading: commentsLoading } = useCollection(`events/${eventId}/comments`);
+  const modal = useModal();
+  const { data: event, loading: eventLoading } = useDocument<EventProps>('events', eventId as string);
+  const { data: commentsData, loading: commentsLoading, create, refreshData} = useCollection<CommentProps>(`events/${eventId}/comments`);
 
   const { theme } = useTheme();
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
+
+  const addComment = () => {
+    modal.show(<CommentForm onSubmit={handleSubmit} />);
+  };
+
+  const handleSubmit = async (
+    description: string,
+    rating: string
+  ) => {
+    try {
+      const commentData = {
+          description: description,
+          rating: rating
+        };
+      const newComment: CommentProps = commentData;
+      await create( newComment );
+      await refreshData();
+      modal.hide();
+    } catch (error: any) {
+      Alert.alert("Falha adicionar comentário", error.toString());
+    }
+  };
+
 
   if (commentsLoading || eventLoading) {
     return <View style={styles.container}><Text>Loading...</Text></View>;
   }
   
-  const renderItem = ({ item }: { item: Comment }) => (
+  const renderItem = ({ item }: { item: CommentProps }) => (
     <View style={styles.commentContainer}>
       <_ComponentComment comment={item} />
     </View>
@@ -53,6 +77,11 @@ export default function Index() {
                 <Text style={styles.ratingText}>(3) Avaliações</Text>
               </View>
             </View>
+            
+            <TouchableOpacity onPress={addComment}>
+              <Text style={styles.commentText}>Adicionar comentários</Text>
+            </TouchableOpacity>
+
             <FlatList
               data={commentsData}
               keyExtractor={(item, index) => index.toString()}

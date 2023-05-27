@@ -1,14 +1,10 @@
 import { useRouter } from "expo-router";
-import {
-  Image, Text,
-  TouchableOpacity,
-  View
-} from "react-native";
-import { Comment } from "..";
+import { Text, View } from "react-native";
 import styles from "./styles";
+import { CommentProps } from "../../../types/Comment";
 
 interface ComponentCommentProps {
-  comment: Comment;
+  comment: CommentProps;
 }
 
 export default function ComponentComment({ comment }: ComponentCommentProps) {

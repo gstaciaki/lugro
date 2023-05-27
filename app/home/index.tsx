@@ -10,8 +10,6 @@ import useCollection from "../../hook/useCollection";
 import  Confirm  from "../../components/Confirm";
 import { useTheme } from "../../context/themeContext";
 
-
-
 export default function Index() {
   const router = useRouter();
   const modal = useModal();
