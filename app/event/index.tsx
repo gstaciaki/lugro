@@ -20,10 +20,6 @@ export default function Index() {
   const { data, loading , remove, update, refreshData} = useCollection<Event>('events');
   const { theme } = useTheme();
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
-  const bgSvgColor = theme == 'dark' ? '#BB86FC' : '#8870E6';
-  const bgCircleColor = theme == 'dark' ? '#C6dcff' : '#C6C9FF';
-  const bgEventBtn = theme == 'dark' ? '#03DAC6' : '#99D14C';
-  const bgRegisterBtn = theme == 'dark' ? '#CF6679' : '#F9ACB3';
 
   if (loading) {
     return <View style={styles.container}><Text>Loading...</Text></View>;
