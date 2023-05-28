@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Switch } from "react-native";
 import React, { useState } from "react";
 import { Link } from "expo-router";
-import ThemeSelector from "../components/ThemeSelector";
+import ThemeSelector from "./ThemeSelector";
 import { useTheme } from "../context/themeContext";
 
   

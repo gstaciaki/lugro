@@ -46,19 +46,6 @@ const styles = StyleSheet.create({
     maxHeight: '55%',
     flexGrow: 1,
   },
-  buttonContainer: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    marginBottom: 10,
-    marginRight: 10,
-    backgroundColor: '#8870E6',
-    width: '30%',
-    height: '20%',
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   buttonText: {
     fontSize: 16,
     fontWeight: '700',
@@ -85,15 +72,30 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   commentContainer: {
-    width: '80%',
-    paddingVertical: 30
+    // width: '80%',
+    // paddingVertical: 30
   },
   commentText: {
     fontSize: 16,
     fontWeight: '700',
     marginTop: 5,
   },
-  
+  button: {
+    borderRadius: 5,
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 40,
+  },      
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: 'flex-end',
+    alignItems: "flex-start",
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    marginBottom: 10,
+  },
 });
 
 export default styles

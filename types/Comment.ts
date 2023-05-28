@@ -1,6 +1,5 @@
 export interface CommentProps {
     id?: string;
-    // id_event: number;
     description: string;
     rating: string;
   }

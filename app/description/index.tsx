@@ -3,47 +3,54 @@ import { FlatList, Image, ScrollView, Alert, Text, TouchableOpacity, View } from
 import styles from './styles'
 import _ComponentComment from './_ComponentComment';
 import useCollection from '../../hook/useCollection';
-// import { Comment, Event } from '../../hook/useCollection';
 import useDocument from '../../hook/useDocument';
 import { useTheme } from '../../context/themeContext';
 import ThemeSelector from '../../components/ThemeSelector';
 import { useModal } from '../../components/ModalProvider';
 import { EventProps } from '../../types/Event';
 import { CommentProps } from '../../types/Comment';
-import CommentForm from '../../components/CommentForm';
-
+import CommentForm from '../../components/comment/CommentForm';
+import { Ionicons } from "@expo/vector-icons";
+import CommentEditForm from '../../components/comment/CommentEditForm';
 
 export default function Index() {
   const {eventId} = useSearchParams()
   const modal = useModal();
   const { data: event, loading: eventLoading } = useDocument<EventProps>('events', eventId as string);
-  const { data: commentsData, loading: commentsLoading, create, refreshData} = useCollection<CommentProps>(`events/${eventId}/comments`);
+  const { data: commentsData, loading: commentsLoading, create, update, remove, refreshData} = useCollection<CommentProps>(`events/${eventId}/comments`);
 
   const { theme } = useTheme();
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
 
   const addComment = () => {
-    modal.show(<CommentForm onSubmit={handleSubmit} />);
+    modal.show(<CommentForm onSubmit={handleCommentSubmit} />);
   };
 
-  const handleSubmit = async (
-    description: string,
-    rating: string
-  ) => {
+  const onEdit = (commentId: string) => {
+    modal.show(<CommentEditForm commentId={commentId} onSubmit={handleCommentSubmit} />);
+  };
+
+
+  const handleCommentSubmit = async (description: string, rating: string, id?: string) => {
     try {
       const commentData = {
-          description: description,
-          rating: rating
-        };
-      const newComment: CommentProps = commentData;
-      await create( newComment );
+        description: description,
+        rating: rating,
+      };
+
+      if (id) {
+        // commentData.id = id;
+        await update(id, commentData);
+      } else {
+        await create(commentData);
+      }
       await refreshData();
       modal.hide();
     } catch (error: any) {
-      Alert.alert("Falha adicionar comentário", error.toString());
+      const errorMessage = id ? "Falha para editar comentário" : "Falha para adicionar comentário";
+      Alert.alert(errorMessage, error.toString());
     }
   };
-
 
   if (commentsLoading || eventLoading) {
     return <View style={styles.container}><Text>Loading...</Text></View>;
@@ -52,6 +59,20 @@ export default function Index() {
   const renderItem = ({ item }: { item: CommentProps }) => (
     <View style={styles.commentContainer}>
       <_ComponentComment comment={item} />
+
+      <View style={styles.buttonsContainer}>
+
+        <TouchableOpacity onPress={()=> onEdit(item.id!)} style={[styles.button, { backgroundColor: '#898cc7' }]}>
+            <Ionicons name="pencil" size={24} color="white" />
+          </TouchableOpacity>
+
+        <TouchableOpacity onPress={async () => {
+            await remove(item.id!);
+            await refreshData();
+          }} style={[styles.button, { backgroundColor: '#ed7781' }]}>
+          <Ionicons name="trash" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
@@ -66,11 +87,13 @@ export default function Index() {
               <Image style={styles.image} source={require("../../assets/restaurant.jpg")} />
             </View>
             <Text style={styles.companieName}>{event.title}</Text>
+            
             <View style={styles.descriptionContainer}>
               <ScrollView style={styles.textContainer}>
                 <Text style={styles.descriptionText}>{event.description}</Text>
               </ScrollView>
             </View>
+            
             <View style={styles.ratingStarsContainer}>
               <View style={styles.ratingStarsContent}>
                 <Image source={require('../../assets/stars.png')} style={styles.starImg} />
