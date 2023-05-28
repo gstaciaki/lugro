@@ -1,13 +1,12 @@
-import { Link, useRouter } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, FlatList, Alert } from 'react-native';
+import { useRouter } from 'expo-router';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, FlatList, Alert } from 'react-native';
 import styles from './styles';
 import ComponentEvent from './_ComponentEvent';
 import useCollection from '../../hook/useCollection';
 import { CommentProps} from "../../types/Comment";
 import { EventProps} from "../../types/Event";
 import { Ionicons } from "@expo/vector-icons";
-import EventEditForm from '../../components/EventEditForm';
+import EventEditForm from '../../components/event/EventEditForm';
 import { useModal } from '../../components/ModalProvider';
 import ThemeSelector from '../../components/ThemeSelector';
 import { useTheme } from "../../context/themeContext";
@@ -17,8 +16,9 @@ import { useTheme } from "../../context/themeContext";
 
 export default function Index() {
   const modal = useModal();
-  const { data, loading , remove, update, refreshData} = useCollection<Event>('events');
+  const { data, loading , remove, update, refreshData} = useCollection<EventProps>('events');
   const { theme } = useTheme();
+  
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
 
   if (loading) {
@@ -32,15 +32,6 @@ export default function Index() {
   const onEdit = (eventId: string) => {
     modal.show(<EventEditForm eventId={eventId} onSubmit={handleSubmit} />);
   };
-
-  interface Event {
-    id: string;
-    title: string;
-    description: string;
-    date: string;
-    local: string;
-    category: string;
-  }
 
   const handleSubmit = async (
     id: string,
@@ -61,7 +52,7 @@ export default function Index() {
           category: category
         };
       
-      const newEvent: Event = eventData;
+      const newEvent: EventProps = eventData;
       await update(id, newEvent);
       await refreshData();
       modal.hide();
@@ -70,7 +61,7 @@ export default function Index() {
     }
   };
 
-  const renderItem = ({ item }: { item: Event }) => (
+  const renderItem = ({ item }: { item: EventProps }) => (
     <View style={styles.commentContainer}>
       <ComponentEvent event={item} />
       <View style={styles.buttonsContainer}>

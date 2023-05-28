@@ -7,23 +7,6 @@ import {
   } from "firebase/firestore";
   import { useEffect, useState } from "react";
   
-  export type Event = {
-    id?: string;
-    title: string;
-    description: string;
-    // imageSource: string;
-    category: string;
-    local:string;
-    date:string;
-  };
-
-  export type Comment = {
-    id?: string;
-    id_event: number;
-    description: string;
-    rating: number;
-  };
-  
   /**
    * Hook to access and manage a firestore document.
    * @param collectionName Collection name in plural (e.g. 'books'). Can also be a path to subcollection.

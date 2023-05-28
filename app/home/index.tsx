@@ -4,18 +4,16 @@ import { View, Image, TouchableOpacity, Text, ScrollView, Alert } from 'react-na
 import { Circle, Polygon, Svg } from "react-native-svg";
 import styles from './styles';
 import { useModal } from "../../components/ModalProvider";
-import EventForm from "../../components/EventForm";
-import { useContext } from "react";
+import EventForm from "../../components/event/EventForm";
 import useCollection from "../../hook/useCollection";
 import  Confirm  from "../../components/Confirm";
 import { useTheme } from "../../context/themeContext";
-
-
+import { EventProps } from "../../types/Event";
 
 export default function Index() {
   const router = useRouter();
   const modal = useModal();
-  const { create, refreshData } = useCollection<Event>("events");
+  const { create, refreshData } = useCollection<EventProps>("events");
   const { theme } = useTheme();
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
   const bgSvgColor = theme == 'dark' ? '#BB86FC' : '#8870E6';
@@ -28,14 +26,6 @@ export default function Index() {
       <EventForm onSubmit={handleSubmit}/>
     )
   };
-
-  interface Event {
-    title: string;
-    description: string;
-    date: string;
-    local: string;
-    category: string;
-  }
 
   const handleSubmit = async (
     title: string,
@@ -54,7 +44,7 @@ export default function Index() {
           category: category
         };
       
-      const newEvent: Event = eventData;
+      const newEvent: EventProps = eventData;
       await create( newEvent );
       await refreshData();
       modal.hide();
