@@ -12,6 +12,7 @@ import { CommentProps } from '../../types/Comment';
 import CommentForm from '../../components/comment/CommentForm';
 import { Ionicons } from "@expo/vector-icons";
 import CommentEditForm from '../../components/comment/CommentEditForm';
+import ConfirmDelete from '../../components/comment/ConfirmDelete';
 
 export default function Index() {
   const {eventId} = useSearchParams()
@@ -66,12 +67,8 @@ export default function Index() {
             <Ionicons name="pencil" size={24} color="white" />
           </TouchableOpacity>
 
-        <TouchableOpacity onPress={async () => {
-            await remove(item.id!);
-            await refreshData();
-          }} style={[styles.button, { backgroundColor: '#ed7781' }]}>
-          <Ionicons name="trash" size={24} color="white" />
-        </TouchableOpacity>
+        <ConfirmDelete type={'comentário'} eventId={eventId} commentId={item.id!}/>
+        
       </View>
     </View>
   );
