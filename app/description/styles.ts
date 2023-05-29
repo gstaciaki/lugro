@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   commentContainer: {
-    // width: '80%',
-    // paddingVertical: 30
+    minWidth: '95%',
+    paddingVertical: 30
   },
   commentText: {
     fontSize: 16,
