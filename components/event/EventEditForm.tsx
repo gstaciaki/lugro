@@ -1,30 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { useModal } from "../ModalProvider";
-import useCollection from "../../hook/useCollection";
 import SelectDropdown from "react-native-select-dropdown";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useDocument from "../../hook/useDocument";
 import { EventProps } from "../../types/Event";
 import styles from "./styles";
+import useCollection from "../../hook/useCollection";
 import { CategoryProps } from "../../types/Category";
 
 interface EventEditFormProps {
-  eventId: string,
+  eventId: string;
   onSubmit: (
     id: string,
     title: string,
     description: string,
     local: string,
     date: string,
-    category: string) => void;
+    category: string
+  ) => void;
 }
 
-export default function EventEditForm({ eventId, onSubmit } : EventEditFormProps) {
+export default function EventEditForm({ eventId, onSubmit }: EventEditFormProps) {
   const modal = useModal();
-  const { data, upsert, loading } = useDocument<EventProps>('events', eventId);
+  const { data, upsert, loading } = useDocument<EventProps>("events", eventId);
   const { data: categories, loading:categoriesLoading } = useCollection<CategoryProps>("categories");
 
+
+  // const categories = ['Cervejada', 'Panka', 'Show', 'Lutas', 'Encontro de carros'];
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [local, setLocal] = useState('');
@@ -42,24 +45,21 @@ export default function EventEditForm({ eventId, onSubmit } : EventEditFormProps
   };
 
   useEffect(() => {
-    if(data){
-      setTitle(data.title)
-      setDescription(data.description)
-      setLocal(data.local)
-      setDate(data.date)
-      setCategory(data.category)
+    if (data) {
+      setTitle(data.title);
+      setDescription(data.description);
+      setLocal(data.local);
+      setDate(data.date);
+      setCategory(data.category);
       console.log(data);
     }
-  }, [data])
+  }, [data]);
 
-  if(loading || categoriesLoading){
-    return (
-      <Text>Loading</Text>
-    )
+  if (categoriesLoading || loading) {
+    return <Text>Loading...</Text>;
   }
-   
-  const listItems = categories.map((dataCategory) => dataCategory.name);
-
+  
+  const listItems = categories.map((category) => category.name);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.field}>
@@ -69,12 +69,12 @@ export default function EventEditForm({ eventId, onSubmit } : EventEditFormProps
 
       <View style={styles.field}>
         <Text style={styles.label}>Descrição do evento</Text>
-        <TextInput style={styles.input} onChangeText={setDescription} value={description}/>
+        <TextInput style={styles.input} onChangeText={setDescription} value={description} />
       </View>
 
       <View style={styles.field}>
         <Text style={styles.label}>Data</Text>
-        <TextInput style={styles.input} value={date}>{date}</TextInput>
+        <TextInput style={styles.input}>{date}</TextInput>
         <Button title="Escolher data" onPress={showDatePicker} />
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
@@ -91,12 +91,12 @@ export default function EventEditForm({ eventId, onSubmit } : EventEditFormProps
       </View>
 
       <View style={styles.field}>
-        <Text style={styles.label} >Categoria</Text>
+        <Text style={styles.label}>Categoria</Text>
         <SelectDropdown
           data={listItems}
           onSelect={(category) => setCategory(category)}
           defaultValue={category}
-          defaultButtonText='Selecione uma opção'
+          defaultButtonText="Selecione uma opção"
           buttonStyle={styles.dropdownBtn}
           buttonTextStyle={styles.dropdownTxt}
           rowStyle={styles.dropdownRow}
@@ -106,7 +106,7 @@ export default function EventEditForm({ eventId, onSubmit } : EventEditFormProps
       </View>
 
       <View style={styles.buttonArea}>
-        <Button title="Salvar" onPress={() => onSubmit(eventId, title,description,local,date,category)} />        
+        <Button title="Salvar" onPress={() => onSubmit(eventId, title, description, local, date, category)} />
         <Button title="Fechar" onPress={() => modal.hide()} />
       </View>
     </ScrollView>
