@@ -14,7 +14,6 @@ import { Ionicons } from "@expo/vector-icons";
 import CommentEditForm from '../../components/comment/CommentEditForm';
 import ConfirmDelete from '../../components/ConfirmDelete';
 
-
 export default function Index() {
   const {eventId} = useSearchParams()
   const modal = useModal();

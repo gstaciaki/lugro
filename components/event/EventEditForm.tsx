@@ -26,8 +26,6 @@ export default function EventEditForm({ eventId, onSubmit }: EventEditFormProps)
   const { data, upsert, loading } = useDocument<EventProps>("events", eventId);
   const { data: categories, loading:categoriesLoading } = useCollection<CategoryProps>("categories");
 
-
-  // const categories = ['Cervejada', 'Panka', 'Show', 'Lutas', 'Encontro de carros'];
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [local, setLocal] = useState('');
