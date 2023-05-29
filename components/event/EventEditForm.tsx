@@ -58,6 +58,12 @@ export default function EventEditForm({ eventId, onSubmit }: EventEditFormProps)
   }
   
   const listItems = categories.map((category) => category.name);
+  if(loading || categoriesLoading){
+    return (
+      <Text>Loading</Text>
+    )
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.field}>
