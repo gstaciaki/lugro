@@ -7,6 +7,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useDocument from "../../hook/useDocument";
 import { EventProps } from "../../types/Event";
 import styles from "./styles";
+import { CategoryProps } from "../../types/Category";
 
 interface EventEditFormProps {
   eventId: string,
@@ -22,8 +23,8 @@ interface EventEditFormProps {
 export default function EventEditForm({ eventId, onSubmit } : EventEditFormProps) {
   const modal = useModal();
   const { data, upsert, loading } = useDocument<EventProps>('events', eventId);
+  const { data: categories, loading:categoriesLoading } = useCollection<CategoryProps>("categories");
 
-  const categories = ['Cervejada', 'Panka', 'Show', 'Lutas', 'Encontro de carros'];
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [local, setLocal] = useState('');
@@ -51,11 +52,13 @@ export default function EventEditForm({ eventId, onSubmit } : EventEditFormProps
     }
   }, [data])
 
-  if(loading){
+  if(loading || categoriesLoading){
     return (
       <Text>Loading</Text>
     )
   }
+   
+  const listItems = categories.map((dataCategory) => dataCategory.name);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -90,7 +93,7 @@ export default function EventEditForm({ eventId, onSubmit } : EventEditFormProps
       <View style={styles.field}>
         <Text style={styles.label} >Categoria</Text>
         <SelectDropdown
-          data={categories}
+          data={listItems}
           onSelect={(category) => setCategory(category)}
           defaultValue={category}
           defaultButtonText='Selecione uma opção'
