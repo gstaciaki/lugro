@@ -6,6 +6,8 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useCollection from "../../hook/useCollection";
 import styles from "./styles";
 import { EventProps } from "../../types/Event";
+import { CategoryProps } from "../../types/Category";
+import useDocument from "../../hook/useDocument";
 
 interface EventFormProps {
   onSubmit: (title: string,
@@ -16,9 +18,9 @@ interface EventFormProps {
 }
 
 export default function EventForm({ onSubmit }: EventFormProps) {
-  const { data, create, refreshData } = useCollection<EventProps>("events");
+  const { data, create, refreshData, loading: eventLoading } = useCollection<EventProps>("events");
+  const { data: categories, loading:categoriesLoading } = useCollection<CategoryProps>("categories");
 
-  const categories = ['Cervejada', 'Panka', 'Show', 'Lutas', 'Encontro de carros'];
   const modal = useModal();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -36,15 +38,11 @@ export default function EventForm({ onSubmit }: EventFormProps) {
     hideDatePicker();
   };
 
-  const saveEvent = async () => {
-    try {
-      await create({ title, description, local, date, category });
-      await refreshData();
-      modal.hide();
-    } catch (error: any) {
-      Alert.alert("Falha ao criar evento", error.toString());
-    }
-  };
+  if (categoriesLoading) {
+    return <Text>Loading...</Text>;
+  }
+  
+  const listItems = categories.map((category) => category.name);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -79,7 +77,7 @@ export default function EventForm({ onSubmit }: EventFormProps) {
       <View style={styles.field}>
         <Text style={styles.label}>Categoria</Text>
         <SelectDropdown
-          data={categories}
+          data={listItems}
           onSelect={(category) => setCategory(category)}
           defaultButtonText='Selecione uma opção'
           buttonStyle={styles.dropdownBtn}
