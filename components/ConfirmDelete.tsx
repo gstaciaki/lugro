@@ -1,17 +1,19 @@
 import { View, Text, TouchableOpacity, Alert, StyleSheet } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
-import { useTheme } from "../../context/themeContext";
+import { useTheme } from "../context/themeContext";
 import { Ionicons } from "@expo/vector-icons";
-import useCollection from "../../hook/useCollection";
-import { EventProps } from "../../types/Event";
+import useCollection from "../hook/useCollection";
+import { EventProps } from "../types/Event";
+import { CommentProps } from "../types/Comment";
 
 export default function ConfirmDelete(data: any) {
   const router = useRouter();
   const { theme } = useTheme();
   const bgRegisterBtn = theme == 'dark' ? '#03DAC6' : '#99D14C';  
 
-  const { data: commentsData, loading, remove, refreshData} = useCollection<EventProps>(`events`);
+  const { data: eventData, loading: eventLoading, remove: eventRemove, refreshData: eventRefresh} = useCollection<EventProps>(`events`);
+  const { data: commentsData, loading: comentLoading, remove: commentRemove, refreshData: commentRefresh} = useCollection<CommentProps>(`events/${data.eventId}/comments`);
 
   const handleAlert = (data: any) => {
     Alert.alert("Confirmar", "Tem certeza que deseja deletar?", [
@@ -21,9 +23,14 @@ export default function ConfirmDelete(data: any) {
       {
         text: "Sim",
         onPress: async () => {
-          console.log( data.type, "deletado com sucesso");
-          await remove(data.eventId!);
-          await refreshData();
+          if(data.type == 'comentário'){
+            await commentRemove(data.commentId!);
+            await commentRefresh();
+          }
+          if(data.type == 'evento'){
+            await eventRemove(data.eventId!);
+            await eventRefresh();
+          }
         },
       },
     ]);

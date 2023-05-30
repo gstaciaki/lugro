@@ -12,7 +12,7 @@ import { CommentProps } from '../../types/Comment';
 import CommentForm from '../../components/comment/CommentForm';
 import { Ionicons } from "@expo/vector-icons";
 import CommentEditForm from '../../components/comment/CommentEditForm';
-import ConfirmDelete from '../../components/comment/ConfirmDelete';
+import ConfirmDelete from '../../components/ConfirmDelete';
 
 export default function Index() {
   const {eventId} = useSearchParams()
@@ -40,8 +40,12 @@ export default function Index() {
       };
 
       if (id) {
-        // commentData.id = id;
-        await update(id, commentData);
+        const commentDataEdit = {
+          id: id,
+          description: description,
+          rating: rating,
+        };
+        await update(id, commentDataEdit);
       } else {
         await create(commentData);
       }
