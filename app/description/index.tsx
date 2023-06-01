@@ -9,9 +9,9 @@ import ThemeSelector from '../../components/ThemeSelector';
 import { useModal } from '../../components/ModalProvider';
 import { EventProps } from '../../types/Event';
 import { CommentProps } from '../../types/Comment';
+import CommentEditForm from '../../components/comment/CommentEditForm';
 import CommentForm from '../../components/comment/CommentForm';
 import { Ionicons } from "@expo/vector-icons";
-import CommentEditForm from '../../components/comment/CommentEditForm';
 import ConfirmDelete from '../../components/ConfirmDelete';
 
 export default function Index() {
@@ -19,7 +19,7 @@ export default function Index() {
   const modal = useModal();
   const { data: event, loading: eventLoading } = useDocument<EventProps>('events', eventId as string);
   const { data: commentsData, loading: commentsLoading, create, update, remove, refreshData} = useCollection<CommentProps>(`events/${eventId}/comments`);
-  
+
   const { theme } = useTheme();
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
 

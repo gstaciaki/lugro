@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Alert, Button, ScrollView, Text, TextInput, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Alert, Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { useModal } from "../ModalProvider";
 import useCollection from "../../hook/useCollection";
 import { CommentProps } from "../../types/Comment";
