@@ -1,6 +1,7 @@
 import { useRouter, useSearchParams } from 'expo-router';
 import { FlatList, Image, ScrollView, Alert, Text, TouchableOpacity, View } from 'react-native';
-import styles from './styles'
+import styles from './styles';
+import defaultStyles from '../styles';
 import _ComponentComment from './_ComponentComment';
 import useCollection from '../../hook/useCollection';
 import useDocument from '../../hook/useDocument';
@@ -61,7 +62,7 @@ export default function Index() {
   };
 
   if (commentsLoading || eventLoading) {
-    return <View style={styles.container}><Text>Loading...</Text></View>;
+    return <View style={defaultStyles.container}><Text>Loading...</Text></View>;
   }
   
   const renderItem = ({ item }: { item: CommentProps }) => (
@@ -79,8 +80,8 @@ export default function Index() {
   );
 
   return (
-    <ScrollView style={{ flexGrow: 1 }}>
-      <View style={[styles.container, { backgroundColor: bgColor }]}>
+    <ScrollView style={[{ flexGrow: 1 }, {backgroundColor: bgColor}]}>
+      <View style={[defaultStyles.container, { backgroundColor: bgColor }]}>
         {event ? (
           <>
             <View style={styles.imageContainer}>
@@ -109,11 +110,12 @@ export default function Index() {
               data={commentsData}
               keyExtractor={(item, index) => index.toString()}
               renderItem={renderItem}
-              contentContainerStyle={styles.container}
+              contentContainerStyle={defaultStyles.container}
             />
           </>
+          
         ) : (
-          <View style={styles.container}><Text>Loading...</Text></View>
+          <View style={defaultStyles.container}><Text>Loading...</Text></View>
         )}
       </View>
     </ScrollView>

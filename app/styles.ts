@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EEEFFD',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -23,9 +22,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '90%'
   },
-  loginButton: {
+  greenButton: {
     width: '90%',
-    height: '25%',
+    height: 100,
     backgroundColor: '#99D14C',
     borderRadius: 27,
     marginBottom: 36,
@@ -33,9 +32,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 15
   },
-  registerButton: {
+  redButton: {
     width: '90%',
-    height: '25%',
+    height: 100,
     backgroundColor: '#F9ACB3',
     borderRadius: 27,
     alignItems: 'center',

@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-nativ
 import React, { useState } from "react";
 import Confirm from "./Confirm";
 import ThemeSelector from "./ThemeSelector";
-import { useTheme } from "../context/themeContext";
+import { getThemeStyles, useTheme } from "../context/themeContext";
 
   
   interface registerFormProps {
@@ -19,9 +19,7 @@ import { useTheme } from "../context/themeContext";
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { theme, toggleTheme } = useTheme();
-    const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
-    const bgInputColor = theme == 'dark' ? '#e6e6e6' : 'white';
-    const bgReturnBtn = theme == 'dark' ? '#ffe03c' : '#F9D415';
+    const { bgColor, bgInputColor, bgReturnBtn } = getThemeStyles(theme);
   
     const handleCepChange = (text: string) => {
       setCep(text);

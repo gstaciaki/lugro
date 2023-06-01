@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Switch } from "rea
 import React, { useState } from "react";
 import { Link } from "expo-router";
 import ThemeSelector from "./ThemeSelector";
-import { useTheme } from "../context/themeContext";
+import { getThemeStyles, useTheme } from "../context/themeContext";
 
   
   interface loginFormProps {
@@ -15,8 +15,7 @@ export default function LoginForm({ onClickSignIn }: loginFormProps) {
   const [password, setPassword] = useState("");
   const [remember, setRememeber] = useState(true);
   const { theme } = useTheme();
-  const bgSvgColor = theme == 'dark' ? '#BB86FC' : '#8870E6';
-  const bgInputColor = theme == 'dark' ? '#e6e6e6' : 'white';
+  const { bgSvgColor, bgInputColor} = getThemeStyles(theme);
 
 
   const canSubmit = email.length === 0 || password.length === 0;
@@ -35,8 +34,7 @@ export default function LoginForm({ onClickSignIn }: loginFormProps) {
 
         <Link href="/register">Cadastrar-se</Link>
       </View>
-      <ThemeSelector>
-      </ThemeSelector>
+      
     </View>
   );
 }
