@@ -22,6 +22,10 @@ export default function Index() {
   
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
 
+  const refreshComments = async () => {
+    await refreshData();
+  };
+  
   if (loading) {
     return <View style={styles.container}><Text>Loading...</Text></View>;
   }
@@ -69,7 +73,7 @@ export default function Index() {
           <TouchableOpacity onPress={()=> onEdit(item.id!)} style={[styles.button, { backgroundColor: '#898cc7' }]}>
             <Ionicons name="pencil" size={24} color="white" />
           </TouchableOpacity>
-          <ConfirmDelete type={'evento'} eventId={item.id!}/>
+          <ConfirmDelete type={'evento'} eventId={item.id!} onRefresh={refreshComments}/>
         </View>
     </View>
   );
