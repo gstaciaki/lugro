@@ -49,7 +49,7 @@ export default function CommentEditForm({ eventId, commentId, onSubmit } : Comme
         <TextInput style={styles.input} onChangeText={setRating} value={rating}/>
       </View> 
 
-      <View style={styles.buttonArea}>
+      <View style={styles.buttonArea}>      
         <Button title="Salvar" onPress={() => onSubmit(description, rating, commentId)} />        
         <Button title="Fechar" onPress={() => modal.hide()} />
       </View>
