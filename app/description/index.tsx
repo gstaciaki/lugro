@@ -16,13 +16,17 @@ import { Ionicons } from "@expo/vector-icons";
 import ConfirmDelete from '../../components/ConfirmDelete';
 
 export default function Index() {
-  const {eventId} = useSearchParams()
+  const { eventId } = useSearchParams();
   const modal = useModal();
   const { data: event, loading: eventLoading } = useDocument<EventProps>('events', eventId as string);
-  const { data: commentsData, loading: commentsLoading, create, update, remove, refreshData} = useCollection<CommentProps>(`events/${eventId}/comments`);
+  const { data: commentsData, loading: commentsLoading, create, update, remove, refreshData } = useCollection<CommentProps>(`events/${eventId}/comments`);
 
   const { theme } = useTheme();
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
+
+  const refreshComments = async () => {
+    await refreshData();
+  };
 
   const addComment = () => {
     modal.show(<CommentForm onSubmit={handleCommentSubmit} />);
@@ -66,20 +70,18 @@ export default function Index() {
       <_ComponentComment comment={item} />
 
       <View style={styles.buttonsContainer}>
+        <TouchableOpacity onPress={() => onEdit(item.id!)} style={[styles.button, { backgroundColor: '#898cc7' }]}>
+          <Ionicons name="pencil" size={24} color="white" />
+        </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=> onEdit(item.id!)} style={[styles.button, { backgroundColor: '#898cc7' }]}>
-            <Ionicons name="pencil" size={24} color="white" />
-          </TouchableOpacity>
-
-        <ConfirmDelete type={'comentário'} eventId={eventId} commentId={item.id!}/>
-        
+        <ConfirmDelete type={'comentário'} eventId={eventId as string} commentId={item.id!} onRefresh={refreshComments} />
       </View>
     </View>
   );
 
   return (
-    <ScrollView style={[{ flexGrow: 1 }, {backgroundColor: bgColor}]}>
-      <View style={[defaultStyles.container, {backgroundColor: bgColor}]}>
+    <ScrollView style={{ flexGrow: 1 }}>
+      <View style={[styles.container, { backgroundColor: bgColor }]}>
         {event ? (
           <>
             <View style={styles.imageContainer}>

@@ -9,9 +9,6 @@ const styles = StyleSheet.create({
   },
   content: {
     width: "80%",
-    height: "80%",
-    margin: 8,
-    padding: 8,
     backgroundColor: "white",
     borderRadius: 8,
     alignItems: "center",
