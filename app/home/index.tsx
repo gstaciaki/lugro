@@ -17,7 +17,7 @@ export default function Index() {
   const modal = useModal();
   const { create, refreshData } = useCollection<EventProps>("events");
   const { theme } = useTheme();
-  const { bgColor, bgSvgColor, bgCircleColor, bgEventBtn, bgRegisterBtn } = getThemeStyles(theme);
+  const { bgColor, bgSvgColor, bgCircleColor, bgLoginBtn, bgRegisterBtn } = getThemeStyles(theme);
 
   const register = () => {
     modal.show(
@@ -90,7 +90,7 @@ return (
       </View>
 
       <View style={defaultStyles.buttonContainer}>
-        <TouchableOpacity style={[defaultStyles.greenButton, {backgroundColor: bgEventBtn}]} onPress={event}>
+        <TouchableOpacity style={[defaultStyles.greenButton, {backgroundColor: bgLoginBtn}]} onPress={event}>
           <Text style={defaultStyles.buttonText}>Eventos</Text>
         </TouchableOpacity>
 
