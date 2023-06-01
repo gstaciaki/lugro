@@ -2,10 +2,10 @@ import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
     container: {
-        // backgroundColor: '#8870E6',
         flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        maxHeight: 300,
     },
     field: {
         marginBottom: 25,

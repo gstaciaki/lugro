@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        maxHeight: 700
     },
     field: {
         marginBottom: 25,
