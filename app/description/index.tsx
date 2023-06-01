@@ -12,13 +12,13 @@ import { CommentProps } from '../../types/Comment';
 import CommentEditForm from '../../components/comment/CommentEditForm';
 import CommentForm from '../../components/comment/CommentForm';
 import { Ionicons } from "@expo/vector-icons";
+import ConfirmDelete from '../../components/ConfirmDelete';
 
 export default function Index() {
   const {eventId} = useSearchParams()
   const modal = useModal();
   const { data: event, loading: eventLoading } = useDocument<EventProps>('events', eventId as string);
-  const { data: commentsData, loading: commentsLoading, create,  update, remove, refreshData} = useCollection<CommentProps>(`events/${eventId}/comments`);
-  
+  const { data: commentsData, loading: commentsLoading, create, update, remove, refreshData} = useCollection<CommentProps>(`events/${eventId}/comments`);
 
   const { theme } = useTheme();
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
@@ -39,8 +39,12 @@ export default function Index() {
       };
 
       if (id) {
-        // commentData.id = id;
-        await update(id, commentData);
+        const commentDataEdit = {
+          id: id,
+          description: description,
+          rating: rating,
+        };
+        await update(id, commentDataEdit);
       } else {
         await create(commentData);
       }
@@ -66,12 +70,8 @@ export default function Index() {
             <Ionicons name="pencil" size={24} color="white" />
           </TouchableOpacity>
 
-        <TouchableOpacity onPress={async () => {
-            await remove(item.id!);
-            await refreshData();
-          }} style={[styles.button, { backgroundColor: '#ed7781' }]}>
-          <Ionicons name="trash" size={24} color="white" />
-        </TouchableOpacity>
+        <ConfirmDelete type={'comentário'} eventId={eventId} commentId={item.id!}/>
+        
       </View>
     </View>
   );

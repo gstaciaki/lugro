@@ -10,6 +10,7 @@ import EventEditForm from '../../components/event/EventEditForm';
 import { useModal } from '../../components/ModalProvider';
 import ThemeSelector from '../../components/ThemeSelector';
 import { useTheme } from "../../context/themeContext";
+import ConfirmDelete from '../../components/ConfirmDelete';
 
 
 // const btnColors = ['#ed7781', '#898cc7', '#283685', '#3e610e'];
@@ -68,13 +69,7 @@ export default function Index() {
           <TouchableOpacity onPress={()=> onEdit(item.id!)} style={[styles.button, { backgroundColor: '#898cc7' }]}>
             <Ionicons name="pencil" size={24} color="white" />
           </TouchableOpacity>
-
-          <TouchableOpacity onPress={async () => {
-              await remove(item.id!);
-              await refreshData();
-            }} style={[styles.button, { backgroundColor: '#ed7781' }]}>
-            <Ionicons name="trash" size={24} color="white" />
-          </TouchableOpacity>
+          <ConfirmDelete type={'evento'} eventId={item.id!}/>
         </View>
     </View>
   );
