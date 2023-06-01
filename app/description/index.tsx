@@ -80,8 +80,8 @@ export default function Index() {
   );
 
   return (
-    <ScrollView style={{ flexGrow: 1 }}>
-      <View style={[styles.container, { backgroundColor: bgColor }]}>
+    <ScrollView style={[{ flexGrow: 1 }, {backgroundColor: bgColor}]}>
+      <View style={[defaultStyles.container, { backgroundColor: bgColor }]}>
         {event ? (
           <>
             <View style={styles.imageContainer}>
