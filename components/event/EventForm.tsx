@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 import { Alert, Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import SelectDropdown from 'react-native-select-dropdown';
-import { useModal } from "./ModalProvider";
+import { useModal } from "../ModalProvider";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import useCollection from "../hook/useCollection";
-
-interface Event {
-  title: string;
-  description: string;
-  date: string;
-  local: string;
-  category: string;
-}
+import useCollection from "../../hook/useCollection";
+import styles from "./styles";
+import { EventProps } from "../../types/Event";
 
 interface EventFormProps {
   onSubmit: (title: string,
@@ -22,7 +16,7 @@ interface EventFormProps {
 }
 
 export default function EventForm({ onSubmit }: EventFormProps) {
-  const { data, create, refreshData } = useCollection<Event>("events");
+  const { data, create, refreshData } = useCollection<EventProps>("events");
 
   const categories = ['Cervejada', 'Panka', 'Show', 'Lutas', 'Encontro de carros'];
   const modal = useModal();
@@ -103,59 +97,3 @@ export default function EventForm({ onSubmit }: EventFormProps) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  field: {
-    marginBottom: 25,
-  },
-  label: {
-    marginBottom: 8,
-    marginLeft: 5
-  },
-  input: {
-    padding: 5,
-    height: 50,
-    borderWidth: 1,
-    borderColor: 'black',
-    width: 250,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    justifyContent: 'center',
-  },
-  dropdownBtn: {
-    width: '90%',
-    height: 50,
-    backgroundColor: '#444',
-    borderRadius: 8,
-  },
-  dropdownTxt: {
-    color: '#FFF',
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  dropdownRow: {
-    backgroundColor: '#444',
-    borderBottomColor: '#C5C5C5',
-  },
-  dropdownRowTxt: {
-    color: '#FFF',
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  dropdownSelectedRow: {
-    backgroundColor: 'rgba(255,255,255,0.2)'
-  },
-  buttonArea: {
-    width: '100%',
-    flexDirection: "row",
-    justifyContent: "space-evenly"
-  },
-  datePicker: {
-    backgroundColor: 'black'
-  }
-});

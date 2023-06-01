@@ -22,7 +22,6 @@ export default function CommentEditForm({ eventId, commentId, onSubmit } : Comme
   const [description, setDescription] = useState('');
   const [rating, setRating] = useState('');
 
-
   useEffect(() => {
     console.log(data)
 

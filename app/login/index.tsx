@@ -17,12 +17,6 @@ export default function Index() {
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
   const bgSvgColor = theme == 'dark' ? '#BB86FC' : '#8870E6';
 
-  const [token, setToken] = useState(0);
-  const context = {
-    token,
-    setToken,
-  };
-
   const handleSignIn = async (
     email: string,
     password: string,
@@ -38,7 +32,6 @@ export default function Index() {
     return (
       <ScrollView style={{backgroundColor: bgColor}}>
        <View style={[styles.header, {backgroundColor: bgColor}]}>
-  
         <Svg height="100%" width="100%" viewBox="0 27 100 100" style={{ position: 'absolute' }}>
           <Polygon
             points="0,0 100,0 100,55 75,75 0,60"
