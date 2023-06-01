@@ -93,7 +93,7 @@ export default function Index() {
   );
 
   return (
-    <ScrollView style={{backgroundColor: bgColor}}>
+    <View style={{backgroundColor: bgColor, flex:1}}>
       <FlatList
         data={data}
         keyExtractor={(item, index) => index.toString()}
@@ -102,6 +102,6 @@ export default function Index() {
       />
        <ThemeSelector>
       </ThemeSelector>
-    </ScrollView>
+    </View>
   );
 }

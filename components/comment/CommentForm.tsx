@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import { useModal } from "./ModalProvider";
-import useCollection from "../hook/useCollection";
-import SelectDropdown from "react-native-select-dropdown";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import useDocument from "../hook/useDocument";
-import { CommentProps } from "../types/Comment";
+import { useModal } from "../ModalProvider";
+import useCollection from "../../hook/useCollection";
+import { CommentProps } from "../../types/Comment";
 
 interface CommentFormProps {
   onSubmit: (
@@ -21,16 +18,6 @@ export default function CommentForm({ onSubmit } : CommentFormProps) {
     const [description, setDescription] = useState('');
     const [rating, setRating] = useState('');
   
-  
-    // const saveEvent = async () => {
-    //   try {
-    //     await create({ description, rating });
-    //     await refreshData();
-    //     modal.hide();
-    //   } catch (error: any) {
-    //     Alert.alert("Falha ao criar comentário", error.toString());
-    //   }
-    // };
   
     return (
       <ScrollView contentContainerStyle={styles.container}>

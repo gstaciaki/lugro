@@ -10,40 +10,47 @@ import ThemeSelector from '../../components/ThemeSelector';
 import { useModal } from '../../components/ModalProvider';
 import { EventProps } from '../../types/Event';
 import { CommentProps } from '../../types/Comment';
-import CommentForm from '../../components/CommentForm';
+import CommentEditForm from '../../components/comment/CommentEditForm';
+import CommentForm from '../../components/comment/CommentForm';
 
 
 export default function Index() {
   const {eventId} = useSearchParams()
   const modal = useModal();
   const { data: event, loading: eventLoading } = useDocument<EventProps>('events', eventId as string);
-  const { data: commentsData, loading: commentsLoading, create, refreshData} = useCollection<CommentProps>(`events/${eventId}/comments`);
+  const { data: commentsData, loading: commentsLoading, create,  update, remove, refreshData} = useCollection<CommentProps>(`events/${eventId}/comments`);
 
   const { theme } = useTheme();
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
 
   const addComment = () => {
-    modal.show(<CommentForm onSubmit={handleSubmit} />);
+    modal.show(<CommentForm onSubmit={handleCommentSubmit} />);
   };
 
-  const handleSubmit = async (
-    description: string,
-    rating: string
-  ) => {
+  const onEdit = (commentId: string) => {
+    modal.show(<CommentEditForm eventId={eventId as string} commentId={commentId} onSubmit={handleCommentSubmit} />);
+  };
+
+  const handleCommentSubmit = async (description: string, rating: string, id?: string) => {
     try {
       const commentData = {
-          description: description,
-          rating: rating
-        };
-      const newComment: CommentProps = commentData;
-      await create( newComment );
+        description: description,
+        rating: rating,
+      };
+
+      if (id) {
+        // commentData.id = id;
+        await update(id, commentData);
+      } else {
+        await create(commentData);
+      }
       await refreshData();
       modal.hide();
     } catch (error: any) {
-      Alert.alert("Falha adicionar comentário", error.toString());
+      const errorMessage = id ? "Falha para editar comentário" : "Falha para adicionar comentário";
+      Alert.alert(errorMessage, error.toString());
     }
   };
-
 
   if (commentsLoading || eventLoading) {
     return <View style={styles.container}><Text>Loading...</Text></View>;
@@ -56,9 +63,7 @@ export default function Index() {
   );
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <ThemeSelector>
-      </ThemeSelector>
+    <ScrollView style={{ flexGrow: 1 }}>
       <View style={[styles.container, {backgroundColor: bgColor}]}>
         {event ? (
           <>
