@@ -3,23 +3,21 @@ import { StatusBar } from 'expo-status-bar';
 import { View, Image, TouchableOpacity, Text, ScrollView, Alert } from 'react-native'
 import { Circle, Polygon, Svg } from "react-native-svg";
 import styles from './styles';
+import defaultStyles from '../styles';
 import { useModal } from "../../components/ModalProvider";
 import EventForm from "../../components/event/EventForm";
 import useCollection from "../../hook/useCollection";
 import  Confirm  from "../../components/Confirm";
-import { useTheme } from "../../context/themeContext";
+import { getThemeStyles, useTheme } from "../../context/themeContext";
 import { EventProps } from "../../types/Event";
+import ThemeSelector from "../../components/ThemeSelector";
 
 export default function Index() {
   const router = useRouter();
   const modal = useModal();
   const { create, refreshData } = useCollection<EventProps>("events");
   const { theme } = useTheme();
-  const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
-  const bgSvgColor = theme == 'dark' ? '#BB86FC' : '#8870E6';
-  const bgCircleColor = theme == 'dark' ? '#C6dcff' : '#C6C9FF';
-  const bgEventBtn = theme == 'dark' ? '#03DAC6' : '#99D14C';
-  const bgRegisterBtn = theme == 'dark' ? '#CF6679' : '#F9ACB3';
+  const { bgColor, bgSvgColor, bgCircleColor, bgEventBtn, bgRegisterBtn } = getThemeStyles(theme);
 
   const register = () => {
     modal.show(
@@ -62,15 +60,15 @@ export default function Index() {
 return (
   <ScrollView>
 
-    <View style={[styles.container, {backgroundColor: bgColor}]}>
-      <Svg height="100%" width="100%" viewBox="0 25 100 100" style={{ position: 'absolute' }}>
+    <View style={[defaultStyles.container, {backgroundColor: bgColor}]}>
+      <Svg height="100%" width="100%" viewBox="0 28 100 100" style={{ position: 'absolute' }}>
         <Polygon
           points="0,0 100,0 100,55 75,75 0,60"
           fill={bgSvgColor}
         />
       </Svg>
 
-      <View style={styles.logoContainer}>
+      <View style={defaultStyles.logoContainer}>
         <Image source={require("../../assets/LugRo_logo.png")} />
       </View>
 
@@ -91,15 +89,17 @@ return (
         </Svg>
       </View>
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.loginButton, {backgroundColor: bgEventBtn}]} onPress={event}>
-          <Text style={styles.buttonText}>Eventos</Text>
+      <View style={defaultStyles.buttonContainer}>
+        <TouchableOpacity style={[defaultStyles.greenButton, {backgroundColor: bgEventBtn}]} onPress={event}>
+          <Text style={defaultStyles.buttonText}>Eventos</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.registerButton, {backgroundColor: bgRegisterBtn}]} onPress={register}>
-          <Text style={styles.buttonText}>Cadastrar Eventos</Text>
+        <TouchableOpacity style={[defaultStyles.redButton, {backgroundColor: bgRegisterBtn}]} onPress={register}>
+          <Text style={defaultStyles.buttonText}>Cadastrar Eventos</Text>
         </TouchableOpacity>
       </View>
+      <ThemeSelector>
+      </ThemeSelector>
       <StatusBar style="auto" />
     </View>
 

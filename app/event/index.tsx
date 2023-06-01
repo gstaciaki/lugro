@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View, FlatList, Alert } from 'react-native';
 import styles from './styles';
+import defaultStyles from '../styles';
 import ComponentEvent from './_ComponentEvent';
 import useCollection from '../../hook/useCollection';
 import { CommentProps} from "../../types/Comment";
@@ -9,7 +10,7 @@ import { Ionicons } from "@expo/vector-icons";
 import EventEditForm from '../../components/event/EventEditForm';
 import { useModal } from '../../components/ModalProvider';
 import ThemeSelector from '../../components/ThemeSelector';
-import { useTheme } from "../../context/themeContext";
+import { getThemeStyles, useTheme } from "../../context/themeContext";
 import ConfirmDelete from '../../components/ConfirmDelete';
 
 
@@ -19,8 +20,7 @@ export default function Index() {
   const modal = useModal();
   const { data, loading , remove, update, refreshData} = useCollection<EventProps>('events');
   const { theme } = useTheme();
-  
-  const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
+  const {bgColor} = getThemeStyles(theme);
 
   if (loading) {
     return <View style={styles.container}><Text>Loading...</Text></View>;
