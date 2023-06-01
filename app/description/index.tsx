@@ -14,12 +14,13 @@ import { Ionicons } from "@expo/vector-icons";
 import CommentEditForm from '../../components/comment/CommentEditForm';
 import ConfirmDelete from '../../components/ConfirmDelete';
 
+
 export default function Index() {
   const {eventId} = useSearchParams()
   const modal = useModal();
   const { data: event, loading: eventLoading } = useDocument<EventProps>('events', eventId as string);
   const { data: commentsData, loading: commentsLoading, create, update, remove, refreshData} = useCollection<CommentProps>(`events/${eventId}/comments`);
-
+  
   const { theme } = useTheme();
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
 
@@ -28,9 +29,8 @@ export default function Index() {
   };
 
   const onEdit = (commentId: string) => {
-    modal.show(<CommentEditForm commentId={commentId} onSubmit={handleCommentSubmit} />);
+    modal.show(<CommentEditForm eventId={eventId as string} commentId={commentId} onSubmit={handleCommentSubmit} />);
   };
-
 
   const handleCommentSubmit = async (description: string, rating: string, id?: string) => {
     try {
@@ -78,9 +78,7 @@ export default function Index() {
   );
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <ThemeSelector>
-      </ThemeSelector>
+    <ScrollView style={{ flexGrow: 1 }}>
       <View style={[styles.container, {backgroundColor: bgColor}]}>
         {event ? (
           <>

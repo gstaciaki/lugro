@@ -6,16 +6,17 @@ import styles from "./styles";
 import { CommentProps } from "../../types/Comment";
 
 interface CommentEditFormProps {
+  eventId: string,
   commentId: string,
   onSubmit: (
-    id: string,
     description: string,
     rating: string,
+    id: string,
     ) => void;
 }
 
-export default function CommentEditForm({ commentId, onSubmit } : CommentEditFormProps) {
-  const { data, loading } = useDocument<CommentProps>('\comments', commentId);
+export default function CommentEditForm({ eventId, commentId, onSubmit } : CommentEditFormProps) {
+  const { data, loading } = useDocument<CommentProps>('/events/'+eventId+'/comments', commentId);
 
   const modal = useModal();
   const [description, setDescription] = useState('');
@@ -49,8 +50,8 @@ export default function CommentEditForm({ commentId, onSubmit } : CommentEditFor
         <TextInput style={styles.input} onChangeText={setRating} value={rating}/>
       </View> 
 
-      <View style={styles.buttonArea}>
-        <Button title="Salvar" onPress={() => onSubmit(commentId, description, rating)} />        
+      <View style={styles.buttonArea}>      
+        <Button title="Salvar" onPress={() => onSubmit(description, rating, commentId)} />        
         <Button title="Fechar" onPress={() => modal.hide()} />
       </View>
     </ScrollView>
