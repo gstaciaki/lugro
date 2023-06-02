@@ -84,7 +84,7 @@ export default function Index() {
         data={data}
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderItem}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={{flexGrow: 1, justifyContent:'center', alignItems:'center'}}
       />
        <ThemeSelector>
       </ThemeSelector>
