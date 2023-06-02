@@ -80,13 +80,13 @@ export default function Index() {
   );
 
   return (
-    <ScrollView style={[{ flexGrow: 1 }, {backgroundColor: bgColor}]}>
+    <View style={[{ flexGrow: 1 }, {backgroundColor: bgColor}]}>
       <View style={[defaultStyles.container, { backgroundColor: bgColor }]}>
         {event ? (
           <>
-            <View style={styles.imageContainer}>
+            {/* <View style={styles.imageContainer}>
               <Image style={styles.image} source={require("../../assets/restaurant.jpg")} />
-            </View>
+            </View> */}
             <Text style={styles.companieName}>{event.title}</Text>
             
             <View style={styles.descriptionContainer}>
@@ -110,7 +110,7 @@ export default function Index() {
               data={commentsData}
               keyExtractor={(item, index) => index.toString()}
               renderItem={renderItem}
-              contentContainerStyle={defaultStyles.container}
+              contentContainerStyle={{flexGrow: 1}}
             />
           </>
           
@@ -118,6 +118,6 @@ export default function Index() {
           <View style={defaultStyles.container}><Text>Loading...</Text></View>
         )}
       </View>
-    </ScrollView>
+    </View>
   );
 }
