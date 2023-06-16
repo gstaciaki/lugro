@@ -29,7 +29,7 @@ export default function Index() {
 
   const register = () => {
     modal.show(
-      <EventForm onSubmit={handleSubmit}/>
+      <EventForm onSubmit={handleSubmit} />
     )
   };
 
@@ -53,7 +53,7 @@ export default function Index() {
         };
       
       const newEvent: EventProps = eventData;
-      await create( newEvent );
+      await create(newEvent);
       await refreshData();
       modal.hide();
     } catch (error: any) {
