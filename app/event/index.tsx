@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View, FlatList, Alert } from 'react-native';
 import styles from './styles';
 import defaultStyles from '../styles';
@@ -12,15 +12,33 @@ import { useModal } from '../../components/ModalProvider';
 import ThemeSelector from '../../components/ThemeSelector';
 import { getThemeStyles, useTheme } from "../../context/themeContext";
 import ConfirmDelete from '../../components/ConfirmDelete';
+import { useEffect, useState } from 'react';
 
 
 // const btnColors = ['#ed7781', '#898cc7', '#283685', '#3e610e'];
 
 export default function Index() {
   const modal = useModal();
-  const { data, loading , remove, update, refreshData} = useCollection<EventProps>('events');
+  const { loading , remove, update, filter, all} = useCollection<EventProps>('events', false);
   const { theme } = useTheme();
   const {bgColor} = getThemeStyles(theme);
+  const {category} = useLocalSearchParams()
+  const [data, setData] = useState<EventProps[]>([])
+
+  const refreshData = () => {
+    if(category){
+      filter("category", category as string || "").then(data => {
+        setData(data)
+      })
+    }
+    else{
+      all().then(data => setData(data))
+    }
+  }
+
+  useEffect(() => {
+    refreshData()
+  }, [])
 
   const refreshComments = async () => {
     await refreshData();
@@ -66,9 +84,9 @@ export default function Index() {
     }
   };
 
-  const renderItem = ({ item }: { item: EventProps }) => (
+  const renderItem = ({ item, index }: { item: EventProps, index: number }) => (
     <View style={styles.commentContainer}>
-      <ComponentEvent event={item} />
+      <ComponentEvent event={item} color={index}/>
       <View style={styles.buttonsContainer}>
           <TouchableOpacity onPress={()=> onEdit(item.id!)} style={[styles.button, { backgroundColor: '#898cc7' }]}>
             <Ionicons name="pencil" size={24} color="white" />
