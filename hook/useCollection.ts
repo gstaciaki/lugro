@@ -5,7 +5,11 @@ import {
     doc,
     getDocs,
     getFirestore,
+    limitToLast,
+    orderBy,
+    query,
     updateDoc,
+    where,
   } from "firebase/firestore";
   import { useEffect, useState } from "react";
   
@@ -79,6 +83,28 @@ import {
       if (precache) all();
       // eslint-disable-next-line
     }, []);
- 
-    return { data, loading, create, remove, update, all, refreshData };
+
+    /**
+   * Get documents (limited) from the collection ordering by a given attribute.
+   * @returns An array of the collection type with filtered elements.
+   */
+  const filter = async (
+    attribute: string,
+    value: string,
+  ) => {
+    setLoading(true);
+    const q = query(collection(db, collectionName),where(attribute, "==", value));
+
+    const querySnapshot = await getDocs(q);
+    const dataAsMap = querySnapshot.docs.map((doc) => {
+      const data = doc.data() as T;
+      return { id: doc.id, ...data };
+    });
+    setLoading(false);
+    return dataAsMap.reverse();
+  };
+
+    return { data, loading, create, remove, update, all, refreshData, filter };
+
+
   }

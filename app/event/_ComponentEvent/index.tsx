@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 
 interface ComponentEventProps {
   event: EventProps;
+  color: number
 }
 
 // Cores disponíveis
@@ -15,16 +16,17 @@ const colors = ['#F9ACB3', '#C6C9FF', '#5b66A3', '#99D14C'];
 const btnColors = ['#ed7781', '#898cc7', '#283685', '#3e610e'];
 
 // Função para retornar uma cor aleatória
-let colorIndex = 0;
-const getNextColor = () => {
-  const color = colors[colorIndex];
-  const btnColor = btnColors[colorIndex];
-  colorIndex = (colorIndex + 1) % colors.length;
+// let colorIndex = 0;
+const getNextColor = (colorIndex: number) => {
+  const color = colors[colorIndex % colors.length];
+  const btnColor = btnColors[colorIndex % colors.length];
+  //colorIndex = (colorIndex + 1) % colors.length;
   return { color, btnColor };
 };
 
-export default function ComponentEvent({ event }: ComponentEventProps) {
-  const backgroundColor = getNextColor();
+export default function ComponentEvent({ event, color }: ComponentEventProps) {
+  const backgroundColor = getNextColor(color);
+  
 
   const router = useRouter();
   const { update, remove, data, refreshData } = useCollection<Event>("events");
@@ -42,9 +44,9 @@ export default function ComponentEvent({ event }: ComponentEventProps) {
   }, [reload]);
 
   return (
-    <View style={[styles.container, { backgroundColor: colors[colorIndex] }]}>
-      {/* <Image style={styles.image} source={event.imageSource} /> */}
-      <View style={styles.image} />
+    <View style={[styles.container, { backgroundColor: backgroundColor.color }]}>
+      <Image style={styles.image} source={event.imageSource} />
+
       <View>
         <Text style={styles.title}>{event.title}</Text>
 

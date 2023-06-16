@@ -57,6 +57,15 @@ export default function Index() {
     })
   }
 
+  const handleFilter = () => {
+    router.push({
+      pathname: "/event",
+      params: {
+        category: "Show"
+      }
+    })
+  }
+
 return (
   <ScrollView>
 
@@ -73,6 +82,7 @@ return (
       </View>
 
       <View >
+        <TouchableOpacity onPress={handleFilter}>
         <Svg width={400} height={300} viewBox="0 0 100 100">
           <Circle cx="5" cy="50" r="18" fill={bgCircleColor} />
           <View>
@@ -87,6 +97,7 @@ return (
             <Image style={[styles.img, {top: 125, left: 298, width: 75, height: 50}]} source={require("./comida.png")} />
           </View>
         </Svg>
+        </TouchableOpacity>
       </View>
 
       <View style={defaultStyles.buttonContainer}>
@@ -95,7 +106,7 @@ return (
         </TouchableOpacity>
 
         <TouchableOpacity style={[defaultStyles.redButton, {backgroundColor: bgRegisterBtn}]} onPress={register}>
-          <Text style={defaultStyles.buttonText}>Cadastrar Eventos</Text>
+          <Text style={defaultStyles.buttonText}>Criar Eventos</Text>
         </TouchableOpacity>
       </View>
       <ThemeSelector>
