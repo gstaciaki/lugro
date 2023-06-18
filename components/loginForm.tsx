@@ -6,7 +6,7 @@ import { getThemeStyles, useTheme } from "../context/themeContext";
 
   
   interface loginFormProps {
-    onClickSignIn: (email: string, password: string, remember: boolean ) => void;
+    onClickSignIn: (email: string, password: string ) => void;
   }
 
  
@@ -28,7 +28,7 @@ export default function LoginForm({ onClickSignIn }: loginFormProps) {
 
         <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Senha' value={password} onChangeText={setPassword} />
 
-        <TouchableOpacity disabled={canSubmit} style={[styles.button, {backgroundColor: bgSvgColor}]}  onPress={() => onClickSignIn(email, password, remember)}>
+        <TouchableOpacity disabled={canSubmit} style={[styles.button, {backgroundColor: bgSvgColor}]}  onPress={() => onClickSignIn(email, password)}>
           <Text style={styles.textButton}>Entrar</Text>
         </TouchableOpacity>
 
