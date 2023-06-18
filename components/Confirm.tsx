@@ -6,9 +6,10 @@ import useAuth from "../hook/useAuth";
 import useCollection from "../hook/useCollection";
 import { CompanyProps } from "../types/Company";
 
+
 export default function Confirm(data:any) {
   const router = useRouter();
-  const { create } = useAuth();
+  const { loading, user, create } = useAuth();
   const { theme } = useTheme();
   const bgRegisterBtn = theme == 'dark' ? '#03DAC6' : '#99D14C';  
   const {refreshData, create: createCompany} = useCollection<CompanyProps>('companies');

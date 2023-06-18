@@ -6,8 +6,19 @@ import { getThemeStyles, useTheme } from '../../../context/themeContext';
 
 export default function Index() {
   const { theme } = useTheme();
+
   const { bgColor, titleColor } = getThemeStyles(theme);
   const router = useRouter()
+  const handleRegister = async (
+    name: string,
+    cnpj: string,
+    address: string,
+    number: string,
+    cep: string,
+    district: string,
+    email: string
+  ) => {
+  };
 
   const handleReturn = (
   ) => {
