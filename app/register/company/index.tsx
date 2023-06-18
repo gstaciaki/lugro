@@ -8,11 +8,12 @@ import { getThemeStyles, useTheme } from '../../../context/themeContext';
 export default function Index() {
 
   const { theme } = useTheme();
+
   const { bgColor, titleColor } = getThemeStyles(theme);
 
 
   const router = useRouter()
-  const handleRegister = (
+  const handleRegister = async (
     name: string,
     cnpj: string,
     address: string,
@@ -22,7 +23,6 @@ export default function Index() {
     email: string,
     password: string,
   ) => {
-    console.log("Cadastrado de", name , "feito com sucesso");
   };
 
   const handleReturn = (

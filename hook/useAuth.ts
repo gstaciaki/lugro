@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   User,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
 /**
@@ -26,6 +27,16 @@ export default function useAuth() {
     await signInWithEmailAndPassword(getAuth(), email, password);
   };
 
+   /**
+   * Wrapper for create login users with loading state flag for conditional renders.
+   * @param email An active user registered in your firebase project.
+   * @param password User's password.
+   */
+   const create = async (email: string, password: string) => {
+    setLoading(true);
+    await createUserWithEmailAndPassword(getAuth(), email, password);
+  };
+
   /**
    * Wrapper for logout users.
    */
@@ -44,5 +55,5 @@ export default function useAuth() {
     });
   }, []);
 
-  return { loading, user, login, logout };
+  return { loading, user, login, logout, create };
 }

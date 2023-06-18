@@ -2,9 +2,11 @@ import { View, Text, TouchableOpacity, Alert, StyleSheet } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
 import { useTheme } from "../context/themeContext";
+import useAuth from "../hook/useAuth";
 
 export default function Confirm(data:any) {
   const router = useRouter();
+  const { loading, user, create } = useAuth();
   const { theme } = useTheme();
   const bgRegisterBtn = theme == 'dark' ? '#03DAC6' : '#99D14C';  
 
@@ -15,10 +17,11 @@ export default function Confirm(data:any) {
       },
       {
         text: "Sim",
-        onPress: () => {
+        onPress: async () => {
+          await create(data.email, data.password);
           console.log("Cadastrado de", data.name , "feito com sucesso");
           router.push({
-            pathname: "../../",
+            pathname: "/login",
           });
         },
       },
