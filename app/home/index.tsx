@@ -57,11 +57,13 @@ export default function Index() {
     })
   }
 
-  const handleFilter = () => {
+  const handleFilter = (
+    event: string
+  ) => {
     router.push({
       pathname: "/event",
       params: {
-        category: "Show"
+        category: event
       }
     })
   }
@@ -81,24 +83,60 @@ return (
         <Image source={require("../../assets/LugRo_logo.png")} />
       </View>
 
-      <View >
-        <TouchableOpacity onPress={handleFilter}>
-        <Svg width={400} height={300} viewBox="0 0 100 100">
-          <Circle cx="5" cy="50" r="18" fill={bgCircleColor} />
-          <View>
-            <Image style={[styles.img, {top: 115, left: 30, width: 70, height: 70}]} source={require("./musica.png")} />
+      <ScrollView horizontal={true}>
+      <View style={{flexDirection:"row"}}>
+          <View style={{flex:1, width:"50%"}}>
+            <TouchableOpacity onPress={() => handleFilter('Show')}>
+            <Svg width={150} height={250} viewBox="0 0 60 50">
+              <Circle cx="25" cy="25" r="22" fill={bgCircleColor} />
+              <View>
+                <Image style={[styles.img, {top: 90, left: 30, width: 70, height: 70}]} source={require("../../assets/musica.png")} />
+              </View>
+            </Svg>
+            </TouchableOpacity>
           </View>
-          <Circle cx="50" cy="50" r="18" fill={bgCircleColor} />
-          <View>
-            <Image style={[styles.img, {top: 115, left: 165, width: 70, height: 70}]} source={require("./luta.png")} />
+          <View style={{flex:1}}>
+            <TouchableOpacity onPress={() => handleFilter('Lutas')}  >
+            <Svg width={150} height={250} viewBox="0 0 60 50">
+              <Circle cx="25" cy="25" r="22" fill={bgCircleColor} />
+              <View>
+                <Image style={[styles.img, {top: 90, left: 30, width: 70, height: 70}]} source={require("../../assets/luta.png")} />
+              </View>
+            </Svg>
+            </TouchableOpacity>
           </View>
-          <Circle cx="95" cy="50" r="18" fill={bgCircleColor} />
-          <View>
-            <Image style={[styles.img, {top: 125, left: 298, width: 75, height: 50}]} source={require("./comida.png")} />
+          <View style={{flex:1}}>
+            <TouchableOpacity onPress={() => handleFilter('Gastronômico')}>
+            <Svg width={150} height={250} viewBox="0 0 60 50">
+              <Circle cx="25" cy="25" r="22" fill={bgCircleColor} />
+              <View>
+                <Image style={[styles.img, {top: 100, left: 25, width: 75, height: 50}]} source={require("../../assets/comida.png")} />
+              </View>
+            </Svg>
+            </TouchableOpacity>
           </View>
-        </Svg>
-        </TouchableOpacity>
+          <View style={{flex:1}}>
+            <TouchableOpacity onPress={() => handleFilter('Cervejada')}>
+            <Svg width={150} height={250} viewBox="0 0 60 50">
+              <Circle cx="25" cy="25" r="22" fill={bgCircleColor} />
+              <View>
+                <Image style={[styles.img, {top: 85, left: 25, width: 75, height: 75}]} source={require("../../assets/cervejada.png")} />
+              </View>
+            </Svg>
+            </TouchableOpacity>
+          </View>
+          <View style={{flex:1}}>
+            <TouchableOpacity onPress={() => handleFilter('Encontro de carros')}>
+            <Svg width={150} height={250} viewBox="0 0 60 50">
+              <Circle cx="25" cy="25" r="22" fill={bgCircleColor} />
+              <View>
+                <Image style={[styles.img, {top: 85, left: 5, width: 120, height: 75}]} source={require("../../assets/carro.png")} />
+              </View>
+            </Svg>
+            </TouchableOpacity>
+          </View>
       </View>
+      </ScrollView>
 
       <View style={defaultStyles.buttonContainer}>
         <TouchableOpacity style={[defaultStyles.greenButton, {backgroundColor: bgLoginBtn}]} onPress={event}>
