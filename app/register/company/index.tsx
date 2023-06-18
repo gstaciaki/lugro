@@ -10,6 +10,7 @@ import useCollection from '../../../hook/useCollection';
 export default function Index() {
 
   const { theme } = useTheme();
+
   const { bgColor, titleColor } = getThemeStyles(theme);
   const { data, loading, refreshData, create} = useCollection<CompanyProps>('companies');
 
