@@ -20,7 +20,6 @@ export default function Index() {
   const handleSignIn = async (
     email: string,
     password: string,
-    remember: boolean
   ) => {
     await login(email, password);
     router.push({
