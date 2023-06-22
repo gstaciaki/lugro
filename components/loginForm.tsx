@@ -26,7 +26,7 @@ export default function LoginForm({ onClickSignIn }: loginFormProps) {
       
         <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='E-mail' value={email} onChangeText={setEmail} />
 
-        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Senha' value={password} onChangeText={setPassword} />
+        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Senha' value={password} keyboardType="default" secureTextEntry={true} onChangeText={setPassword} />
 
         <TouchableOpacity disabled={canSubmit} style={[styles.button, {backgroundColor: bgSvgColor}]}  onPress={() => onClickSignIn(email, password)}>
           <Text style={styles.textButton}>Entrar</Text>
