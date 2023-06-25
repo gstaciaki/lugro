@@ -6,10 +6,17 @@ import { getThemeStyles, useTheme } from "../context/themeContext";
 
 
   interface registerFormProps {
-    onReturn: () => void;
+    onSubmit: (name: string,
+      cnpj: string,
+      address: string,
+      number: string,
+      cep: string,
+      district: string,
+      email: string,
+      password: string) => void;
   }
   
-  export default function registerForm({ onReturn }: registerFormProps) {
+  export default function registerForm({ onSubmit }: registerFormProps) {
     const [name, setName] = useState("");
     const [cnpj, setCnpj] = useState("");
     const [address, setAddress] = useState("");
@@ -58,7 +65,7 @@ import { getThemeStyles, useTheme } from "../context/themeContext";
 
         <View style={{flexDirection:"row", marginLeft: "5%"}}>
           <View style={{flex:1}}>
-            <Confirm name={name} cnpj={cnpj} address={address} number={number} cep={cep} district={district} email={email} password={password}/>
+            <Confirm name={name} cnpj={cnpj} address={address} number={number} cep={cep} district={district} email={email}/>
           </View>
         </View>
       </View>
