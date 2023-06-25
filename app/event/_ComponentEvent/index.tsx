@@ -1,6 +1,5 @@
 import { useRouter } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-// import { Event } from "../../../hook/useDocument";
 import { EventProps } from "../../../types/Event";
 import styles from "./styles";
 import useCollection from "../../../hook/useCollection";
@@ -11,16 +10,12 @@ interface ComponentEventProps {
   color: number
 }
 
-// Cores disponíveis
 const colors = ['#F9ACB3', '#C6C9FF', '#5b66A3', '#99D14C'];
 const btnColors = ['#ed7781', '#898cc7', '#283685', '#3e610e'];
 
-// Função para retornar uma cor aleatória
-// let colorIndex = 0;
 const getNextColor = (colorIndex: number) => {
   const color = colors[colorIndex % colors.length];
   const btnColor = btnColors[colorIndex % colors.length];
-  //colorIndex = (colorIndex + 1) % colors.length;
   return { color, btnColor };
 };
 
@@ -46,7 +41,7 @@ export default function ComponentEvent({ event, color }: ComponentEventProps) {
   return (
     <View style={[styles.container, { backgroundColor: backgroundColor.color }]}>
       <Image style={styles.image} source={event.imageSource} />
-
+      <View style={styles.image} />
       <View>
         <Text style={styles.title}>{event.title}</Text>
 
