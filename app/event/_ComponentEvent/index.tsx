@@ -1,12 +1,13 @@
 import { useRouter } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { Event } from "../../../hook/useDocument";
+// import { Event } from "../../../hook/useDocument";
+import { EventProps } from "../../../types/Event";
 import styles from "./styles";
 import useCollection from "../../../hook/useCollection";
 import React, { useEffect, useState } from 'react';
 
 interface ComponentEventProps {
-  event: Event;
+  event: EventProps;
 }
 
 // Cores disponíveis
@@ -42,8 +43,8 @@ export default function ComponentEvent({ event }: ComponentEventProps) {
 
   return (
     <View style={[styles.container, { backgroundColor: colors[colorIndex] }]}>
-      <Image style={styles.image} source={event.imageSource} />
-
+      {/* <Image style={styles.image} source={event.imageSource} /> */}
+      <View style={styles.image} />
       <View>
         <Text style={styles.title}>{event.title}</Text>
 

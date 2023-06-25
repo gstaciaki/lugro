@@ -6,10 +6,17 @@ import { getThemeStyles, useTheme } from "../context/themeContext";
 
   
   interface registerFormProps {
-    onReturn: () => void;
+    onSubmit: (name: string,
+      cnpj: string,
+      address: string,
+      number: string,
+      cep: string,
+      district: string,
+      email: string,
+      password: string) => void;
   }
   
-  export default function registerForm({ onReturn }: registerFormProps) {
+  export default function registerForm({ onSubmit }: registerFormProps) {
     const [name, setName] = useState("");
     const [cnpj, setCnpj] = useState("");
     const [address, setAddress] = useState("");
@@ -37,6 +44,10 @@ import { getThemeStyles, useTheme } from "../context/themeContext";
       }
     }
 
+    function onReturn(): void {
+      throw new Error("Function not implemented.");
+    }
+
     return (
       <View style={[styles.container, {backgroundColor: bgColor}]}>
         <View style={styles.content}>
@@ -62,7 +73,7 @@ import { getThemeStyles, useTheme } from "../context/themeContext";
             </TouchableOpacity>
           </View>
           <View style={{flex:1}}>
-          <Confirm name={name} cnpj={cnpj} address={address} number={number} cep={cep} district={district} email={email} password={password}/>
+          <Confirm onPress={() => onSubmit(name ,cnpj, address, number, cep, district, email, password)}/>
           </View>
         </View>
       </View>

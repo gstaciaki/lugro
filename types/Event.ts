@@ -6,6 +6,7 @@ export interface EventProps {
     category: string;
     local:string;
     date: string;
+    // company_id: string;
   }
   
   export type EventContextType = {
