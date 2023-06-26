@@ -7,7 +7,6 @@ export interface CompanyProps {
     cep:string;
     district: string;
     email: string;
-    password: string;
   }
   
   export type CompanyContextType = {
