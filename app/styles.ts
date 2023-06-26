@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
     width: '100%',
-    height: 250,
+    // height: 250,
   },
   logo: {
     flex: 1

@@ -7,17 +7,22 @@ import defaultStyles from '../styles';
 import { useModal } from "../../components/ModalProvider";
 import EventForm from "../../components/event/EventForm";
 import useCollection from "../../hook/useCollection";
-import  Confirm  from "../../components/Confirm";
 import { getThemeStyles, useTheme } from "../../context/themeContext";
 import { EventProps } from "../../types/Event";
 import ThemeSelector from "../../components/ThemeSelector";
+import useAuth from "../../hook/useAuth";
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { CompanyProps } from "../../types/Company";
 
 export default function Index() {
   const router = useRouter();
   const modal = useModal();
   const { create, refreshData } = useCollection<EventProps>("events");
+  const { data } = useCollection<CompanyProps>("companies");
+
   const { theme } = useTheme();
   const { bgColor, bgSvgColor, bgCircleColor, bgLoginBtn, bgRegisterBtn } = getThemeStyles(theme);
+  const { user, logout } = useAuth();
 
   const register = () => {
     modal.show(
@@ -68,16 +73,43 @@ export default function Index() {
     })
   }
 
+  const handleUser = (
+    email: string
+  ) => {
+    router.push({
+      pathname: "/companies",
+      params: {
+        email: email
+      }
+    })
+  }
+
+  const Logout = () => {
+    logout();
+    router.push({
+      pathname: "/"
+    })
+  }
+
 return (
   <ScrollView>
-
-    <View style={[defaultStyles.container, {backgroundColor: bgColor}]}>
+    <View style={[{backgroundColor: bgColor}]}>
       <Svg height="100%" width="100%" viewBox="0 28 100 100" style={{ position: 'absolute' }}>
         <Polygon
           points="0,0 100,0 100,55 75,75 0,60"
           fill={bgSvgColor}
         />
       </Svg>
+
+      <View style={styles.headerContainer}>
+        <Text style={styles.emailText}>Bem vindo(a) {user?.email}</Text>
+
+        <TouchableOpacity onPress={Logout} style={styles.logoutText}>
+          <Icon name="sign-out" size={20} color="#ccc" />
+          <Text style={{ color: '#ccc', marginLeft: 5 }}>Logout</Text>
+        </TouchableOpacity>
+
+      </View>
 
       <View style={defaultStyles.logoContainer}>
         <Image source={require("../../assets/LugRo_logo.png")} />
@@ -154,3 +186,5 @@ return (
 
   </ScrollView>
 );}
+
+

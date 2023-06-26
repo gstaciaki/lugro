@@ -36,7 +36,7 @@ export default function Index() {
         />
       </Svg>
 
-      <View style={defaultStyles.logoContainer}>
+      <View style={[defaultStyles.logoContainer, {height: 250}]}>
         <Image source={require("../../assets/LugRo_logo.png")}></Image>
       </View>
 
