@@ -24,8 +24,14 @@ export default function Index() {
     await login(email, password);
     router.push({
       pathname: "/home",
-    });
+      params: {
+        email: email
+      }
+    })
+
   };
+
+
 
   if (login.length > 0) {
     return (

@@ -54,7 +54,7 @@ import { getThemeStyles, useTheme } from "../context/themeContext";
         </View>
         <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Bairro' value={district} onChangeText={setDistrict} />
         <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='E-mail' value={email}  onChangeText={(text) => setEmail(text)} />
-        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Senha' value={password} onChangeText={setPassword} />
+        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Senha' value={password} keyboardType="default" secureTextEntry={true} onChangeText={setPassword} />
 
         <View style={{flexDirection:"row", marginLeft: "5%"}}>
           <View style={{flex:1}}>

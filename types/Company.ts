@@ -11,5 +11,5 @@ export interface CompanyProps {
   
   export type CompanyContextType = {
     companies: CompanyProps[];
-    filterEvent: (category: string) => void;
+    filterEvent: (email: string) => void;
   };

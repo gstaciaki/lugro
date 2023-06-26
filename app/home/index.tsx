@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
 import { View, Image, TouchableOpacity, Text, ScrollView, Alert } from 'react-native'
 import { Circle, Polygon, Svg } from "react-native-svg";
@@ -13,16 +13,19 @@ import ThemeSelector from "../../components/ThemeSelector";
 import useAuth from "../../hook/useAuth";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { CompanyProps } from "../../types/Company";
+import React, { useEffect, useState } from 'react';
 
 export default function Index() {
   const router = useRouter();
   const modal = useModal();
-  const { create, refreshData } = useCollection<EventProps>("events");
-  const { data } = useCollection<CompanyProps>("companies");
-
+  const { create } = useCollection<EventProps>("events");
+  const { loading , remove, update, filter, all} = useCollection<CompanyProps>('companies', false);
+  const {email} = useLocalSearchParams()
   const { theme } = useTheme();
   const { bgColor, bgSvgColor, bgCircleColor, bgLoginBtn, bgRegisterBtn } = getThemeStyles(theme);
   const { user, logout } = useAuth();
+  const [companies, setData] = useState<CompanyProps[]>([])
+  const [name, setName] = useState('');
 
   const register = () => {
     modal.show(
@@ -73,16 +76,22 @@ export default function Index() {
     })
   }
 
-  const handleUser = (
-    email: string
-  ) => {
-    router.push({
-      pathname: "/companies",
-      params: {
-        email: email
-      }
-    })
+  const refreshData = () =>{
+    if(email){
+      filter("email", email as string || "").then(data => {
+        setData(data)
+        setName(data[0].name);
+      })
+    }
+    else{
+      all().then(data => setData(data))
+    }
   }
+
+  useEffect(() => {
+    refreshData()
+  }, [])
+
 
   const Logout = () => {
     logout();
@@ -102,7 +111,7 @@ return (
       </Svg>
 
       <View style={styles.headerContainer}>
-        <Text style={styles.emailText}>Bem vindo(a) {user?.email}</Text>
+        <Text style={styles.emailText}>Bem vindo(a) {name}</Text>
 
         <TouchableOpacity onPress={Logout} style={styles.logoutText}>
           <Icon name="sign-out" size={20} color="#ccc" />
