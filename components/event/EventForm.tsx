@@ -20,7 +20,9 @@ interface EventFormProps {
 }
 
 export default function EventForm({ onSubmit }: EventFormProps) {
+  // const { data, create, loading: eventLoading } = useCollection<EventProps>("events");
   const { data: categories, loading:categoriesLoading } = useCollection<CategoryProps>("categories");
+  // const { loading , remove, update, filter, all} = useCollection<CompanyProps>('companies', false);
 
   const { user, loading: userLoading} = useAuth();
 
@@ -42,10 +44,6 @@ export default function EventForm({ onSubmit }: EventFormProps) {
     hideDatePicker();
   };
 
-  if (categoriesLoading) {
-    return <Text>Loading...</Text>;
-  }
-  
   if (companyEmail == "") {
     setCompanyEmail(user?.email);
   }

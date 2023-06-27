@@ -29,8 +29,6 @@ export default function Index() {
 
   };
 
-
-
   if (login.length > 0) {
     return (
       <ScrollView style={{ backgroundColor: bgColor }}>
