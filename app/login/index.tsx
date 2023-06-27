@@ -9,8 +9,6 @@ import useAuth from '../../hook/useAuth';
 import { getThemeStyles, useTheme } from '../../context/themeContext';
 import ThemeSelector from '../../components/ThemeSelector';
 
-
-
 export default function Index() {
   const router = useRouter();
   const { loading, user, login, logout } = useAuth();
@@ -30,8 +28,6 @@ export default function Index() {
     })
 
   };
-
-
 
   if (login.length > 0) {
     return (
@@ -58,5 +54,3 @@ export default function Index() {
 
   return null;
 }
-
-

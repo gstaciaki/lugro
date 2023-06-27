@@ -11,7 +11,7 @@ import { getThemeStyles, useTheme } from "../../context/themeContext";
 import { EventProps } from "../../types/Event";
 import ThemeSelector from "../../components/ThemeSelector";
 import useAuth from "../../hook/useAuth";
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 import { CompanyProps } from "../../types/Company";
 import React, { useEffect, useState } from 'react';
 
@@ -38,7 +38,8 @@ export default function Index() {
     description: string,
     local: string,
     date: string,
-    category: string
+    category: string,
+    companyEmail: string
   ) => {
     try {
       const eventData = 
@@ -47,7 +48,8 @@ export default function Index() {
           description: description,
           local: local,
           date: date,
-          category: category
+          category: category,
+          companyEmail: companyEmail
         };
       
       const newEvent: EventProps = eventData;
@@ -114,7 +116,7 @@ return (
         <Text style={styles.emailText}>Bem vindo(a) {name}</Text>
 
         <TouchableOpacity onPress={Logout} style={styles.logoutText}>
-          <Icon name="sign-out" size={20} color="#ccc" />
+          {/* <Icon name="sign-out" size={20} color="#ccc" /> */}
           <Text style={{ color: '#ccc', marginLeft: 5 }}>Logout</Text>
         </TouchableOpacity>
 

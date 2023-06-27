@@ -62,7 +62,8 @@ export default function Index() {
     description: string,
     local: string,
     date: string,
-    category: string
+    category: string,
+    companyEmail: string
   ) => {
     try {
       const eventData = 
@@ -72,7 +73,8 @@ export default function Index() {
           description: description,
           local: local,
           date: date,
-          category: category
+          category: category,
+          companyEmail: companyEmail
         };
       
       const newEvent: EventProps = eventData;
