@@ -20,7 +20,14 @@ interface EventFormProps {
 }
 
 export default function EventForm({ onSubmit }: EventFormProps) {
+<<<<<<< HEAD
+=======
+  // const { data, create, loading: eventLoading } = useCollection<EventProps>("events");
+>>>>>>> 2342f97 (F_00038 - Logout e save email company em eventos)
   const { data: categories, loading:categoriesLoading } = useCollection<CategoryProps>("categories");
+  // const { loading , remove, update, filter, all} = useCollection<CompanyProps>('companies', false);
+
+  const { user, loading: userLoading} = useAuth();
 
   const { user, loading: userLoading} = useAuth();
 
@@ -41,6 +48,15 @@ export default function EventForm({ onSubmit }: EventFormProps) {
     setDate(formattedDate);
     hideDatePicker();
   };
+
+  if (categoriesLoading) {
+    return <Text>Loading...</Text>;
+
+
+  }if (userLoading) {
+    setCompanyEmail(user?.email);
+  }
+
 
   if (categoriesLoading) {
     return <Text>Loading...</Text>;
