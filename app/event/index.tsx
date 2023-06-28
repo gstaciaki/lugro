@@ -15,21 +15,29 @@ import ConfirmDelete from '../../components/ConfirmDelete';
 import { useEffect, useState } from 'react';
 
 
-// const btnColors = ['#ed7781', '#898cc7', '#283685', '#3e610e'];
-
 export default function Index() {
   const modal = useModal();
   const { loading , remove, update, filter, all} = useCollection<EventProps>('events', false);
   const { theme } = useTheme();
   const {bgColor} = getThemeStyles(theme);
-  const {category} = useLocalSearchParams()
+  const {category, companyEmail} = useLocalSearchParams()
   const [data, setData] = useState<EventProps[]>([])
 
   const refreshData = () => {
-    if(category){
-      filter("category", category as string || "").then(data => {
+    if(companyEmail){
+
+      filter("companyEmail", companyEmail as string || "").then(data => {
         setData(data)
       })
+
+      if(category){
+        filter("category", category as string || "").then(data => {
+          setData(data)
+        })
+      }
+      else{
+        all().then(data => setData(data))
+      }
     }
     else{
       all().then(data => setData(data))

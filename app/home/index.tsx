@@ -11,7 +11,7 @@ import { getThemeStyles, useTheme } from "../../context/themeContext";
 import { EventProps } from "../../types/Event";
 import ThemeSelector from "../../components/ThemeSelector";
 import useAuth from "../../hook/useAuth";
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { CompanyProps } from "../../types/Company";
 import React, { useEffect, useState } from 'react';
 
@@ -73,7 +73,8 @@ export default function Index() {
     router.push({
       pathname: "/event",
       params: {
-        category: event
+        category: event,
+        companyEmail: event,
       }
     })
   }
@@ -81,8 +82,11 @@ export default function Index() {
   const refreshData = () =>{
     if(email){
       filter("email", email as string || "").then(data => {
-        setData(data)
-        setName(data[0].name);
+        setData(data);
+        
+        if(name == ""){
+          setName(data[0].name);
+        }
       })
     }
     else{
@@ -113,6 +117,13 @@ export default function Index() {
           />
         </Svg>
   
+        <View style={styles.headerContainer}>
+          <Text style={styles.emailText}>Bem vindo(a) {name}</Text>
+          <TouchableOpacity onPress={Logout} style={styles.logoutText}>
+            <Icon name="sign-out" size={20} color="#ccc" />
+            <Text style={{ color: '#ccc', marginLeft: 5 }}>Logout</Text>
+          </TouchableOpacity>
+        </View>
         <View style={defaultStyles.logoContainer}>
           <Image source={require("../../assets/LugRo_logo.png")} />
         </View>

@@ -43,8 +43,7 @@ import { getThemeStyles, useTheme } from "../context/themeContext";
         ])
       }
     }
-
-
+    
     return (
       <View style={[styles.container, {backgroundColor: bgColor}]}>
         <View style={styles.content}>
@@ -65,7 +64,7 @@ import { getThemeStyles, useTheme } from "../context/themeContext";
 
         <View style={{flexDirection:"row", marginLeft: "5%"}}>
           <View style={{flex:1}}>
-            <Confirm name={name} cnpj={cnpj} address={address} number={number} cep={cep} district={district} email={email}/>
+            <Confirm name={name} cnpj={cnpj} address={address} number={number} cep={cep} district={district} email={email} password={password} />
           </View>
         </View>
       </View>
