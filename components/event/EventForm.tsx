@@ -21,11 +21,13 @@ interface EventFormProps {
 
 export default function EventForm({ onSubmit }: EventFormProps) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   // const { data, create, loading: eventLoading } = useCollection<EventProps>("events");
 >>>>>>> 2342f97 (F_00038 - Logout e save email company em eventos)
+=======
+>>>>>>> c6e40d3 (F_00038 - event com company emai)
   const { data: categories, loading:categoriesLoading } = useCollection<CategoryProps>("categories");
-  // const { loading , remove, update, filter, all} = useCollection<CompanyProps>('companies', false);
 
   const { user, loading: userLoading} = useAuth();
 
@@ -51,12 +53,11 @@ export default function EventForm({ onSubmit }: EventFormProps) {
 
   if (categoriesLoading) {
     return <Text>Loading...</Text>;
-
-
-  }if (userLoading) {
+  }
+  
+  if (companyEmail == "") {
     setCompanyEmail(user?.email);
   }
-
 
   if (categoriesLoading) {
     return <Text>Loading...</Text>;
