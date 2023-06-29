@@ -24,20 +24,10 @@ export default function Index() {
   const [data, setData] = useState<EventProps[]>([])
 
   const refreshData = () => {
-    if(companyEmail){
-
-      filter("companyEmail", companyEmail as string || "").then(data => {
+    if(category){
+      filter("category", category as string || "").then(data => {
         setData(data)
       })
-
-      if(category){
-        filter("category", category as string || "").then(data => {
-          setData(data)
-        })
-      }
-      else{
-        all().then(data => setData(data))
-      }
     }
     else{
       all().then(data => setData(data))
