@@ -6,6 +6,7 @@ import useAuth from "../hook/useAuth";
 import useCollection from "../hook/useCollection";
 import { CompanyProps } from "../types/Company";
 
+
 export default function Confirm(data:any) {
   const router = useRouter();
   const { loading, user, create } = useAuth();
