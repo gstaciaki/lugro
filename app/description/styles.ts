@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
   commentText: {
     fontSize: 16,
     fontWeight: '700',
-    marginTop: 5,
   },
   button: {
     borderRadius: 5,
@@ -90,6 +89,16 @@ const styles = StyleSheet.create({
     right: 0,
     marginBottom: 10,
   },
+  buttonComment: {
+      width: '60%',
+      height: 40,
+      backgroundColor: '#99D14C',
+      borderRadius: 27,
+      marginBottom: 36,
+      marginTop: 20,
+      alignItems: 'center',
+      justifyContent: 'center'
+  }
 });
 
 export default styles

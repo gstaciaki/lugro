@@ -102,8 +102,11 @@ export default function Index() {
               </View>
             </View>
             
-            <TouchableOpacity onPress={addComment}>
-              <Text style={styles.commentText}>Adicionar comentários</Text>
+            <TouchableOpacity style={styles.buttonComment} onPress={addComment}>
+              <Text style={styles.commentText}>
+                <Ionicons name="add-circle-outline" size={20} style={styles.icon} color="white" />
+                Adicionar comentários
+              </Text>
             </TouchableOpacity>
 
             <FlatList

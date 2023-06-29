@@ -11,7 +11,8 @@ import { getThemeStyles, useTheme } from "../../context/themeContext";
 import { EventProps } from "../../types/Event";
 import ThemeSelector from "../../components/ThemeSelector";
 import useAuth from "../../hook/useAuth";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Ionicons } from "@expo/vector-icons";
+
 import { CompanyProps } from "../../types/Company";
 import React, { useEffect, useState } from 'react';
 
@@ -74,7 +75,6 @@ export default function Index() {
       pathname: "/event",
       params: {
         category: event,
-        companyEmail: event,
       }
     })
   }
@@ -120,10 +120,11 @@ export default function Index() {
         <View style={styles.headerContainer}>
           <Text style={styles.emailText}>Bem vindo(a) {name}</Text>
           <TouchableOpacity onPress={Logout} style={styles.logoutText}>
-            <Icon name="sign-out" size={20} color="#ccc" />
+            <Ionicons name="log-out-outline" size={20} color="#ccc" />
             <Text style={{ color: '#ccc', marginLeft: 5 }}>Logout</Text>
           </TouchableOpacity>
         </View>
+        
         <View style={defaultStyles.logoContainer}>
           <Image source={require("../../assets/LugRo_logo.png")} />
         </View>

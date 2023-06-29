@@ -54,7 +54,7 @@ export default function Index() {
     <ScrollView style={{backgroundColor: bgColor}}>
     <View style={[styles.body, {backgroundColor: bgColor}]}>
       <KeyboardAvoidingView behavior={'padding'}>
-      <Text style={[styles.title, {backgroundColor: bgColor, color: titleColor}]}>Cadastrar</Text>
+      <Text style={[styles.title, {backgroundColor: bgColor, color: titleColor, marginTop: 30}]}>Cadastrar</Text>
         <RegisterForm onSubmit={handleSubmit}/>
       </KeyboardAvoidingView>
     </View>

@@ -6,6 +6,8 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flexDirection: 'row',
+    width:'100%',
+    alignItems: 'baseline',
     justifyContent: 'space-between',
   },
   emailText: {
