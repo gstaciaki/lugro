@@ -5,13 +5,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 33,
   },
   logoContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
     width: '100%',
-    height: 250,
   },
   logo: {
     flex: 1

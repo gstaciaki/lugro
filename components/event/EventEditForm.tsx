@@ -17,7 +17,8 @@ interface EventEditFormProps {
     description: string,
     local: string,
     date: string,
-    category: string
+    category: string,
+    companyEmail: string
   ) => void;
 }
 
@@ -32,6 +33,7 @@ export default function EventEditForm({ eventId, onSubmit }: EventEditFormProps)
   const [date, setDate] = useState('');
   const [category, setCategory] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [companyEmail, setcompanyEmail] = useState('');
 
   const showDatePicker = () => setDatePickerVisibility(true);
   const hideDatePicker = () => setDatePickerVisibility(false);
@@ -105,7 +107,7 @@ export default function EventEditForm({ eventId, onSubmit }: EventEditFormProps)
       </View>
 
       <View style={styles.buttonArea}>
-        <Button title="Salvar" onPress={() => onSubmit(eventId, title, description, local, date, category)} />
+        <Button title="Salvar" onPress={() => onSubmit(eventId, title, description, local, date, category, companyEmail)} />
         <Button title="Fechar" onPress={() => modal.hide()} />
       </View>
     </ScrollView>

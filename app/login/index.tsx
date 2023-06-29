@@ -9,8 +9,6 @@ import useAuth from '../../hook/useAuth';
 import { getThemeStyles, useTheme } from '../../context/themeContext';
 import ThemeSelector from '../../components/ThemeSelector';
 
-
-
 export default function Index() {
   const router = useRouter();
   const { loading, user, login, logout } = useAuth();
@@ -24,7 +22,11 @@ export default function Index() {
     await login(email, password);
     router.push({
       pathname: "/home",
-    });
+      params: {
+        email: email
+      }
+    })
+
   };
 
   if (login.length > 0) {
@@ -34,7 +36,7 @@ export default function Index() {
           <Svg height="100%" width="100%" viewBox="0 27 100 100" style={{ position: 'absolute' }}>
             <Polygon points="0,0 100,0 100,55 75,75 0,60" fill={bgSvgColor} />
           </Svg>
-          <View style={[defaultStyles.logoContainer]}>
+          <View style={[defaultStyles.logoContainer, {height: 250}]}>
             <Image source={require('../../assets/LugRo_logo.png')}></Image>
           </View>
           <View style={styles.body}>
@@ -52,5 +54,3 @@ export default function Index() {
 
   return null;
 }
-
-

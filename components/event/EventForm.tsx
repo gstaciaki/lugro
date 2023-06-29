@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, Button, ScrollView, Text, TextInput, View } from "react-native";
 import SelectDropdown from 'react-native-select-dropdown';
 import { useModal } from "../ModalProvider";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -7,19 +7,22 @@ import useCollection from "../../hook/useCollection";
 import styles from "./styles";
 import { EventProps } from "../../types/Event";
 import { CategoryProps } from "../../types/Category";
-import useDocument from "../../hook/useDocument";
+import { CompanyProps } from "../../types/Company";
+import useAuth from "../../hook/useAuth";
 
 interface EventFormProps {
   onSubmit: (title: string,
     description: string,
     local: string,
     date: string,
-    category: string) => void;
+    category: string,
+    companyEmail: string) => void;
 }
 
 export default function EventForm({ onSubmit }: EventFormProps) {
-  const { data, create, refreshData, loading: eventLoading } = useCollection<EventProps>("events");
   const { data: categories, loading:categoriesLoading } = useCollection<CategoryProps>("categories");
+
+  const { user, loading: userLoading} = useAuth();
 
   const modal = useModal();
   const [title, setTitle] = useState('');
@@ -28,6 +31,7 @@ export default function EventForm({ onSubmit }: EventFormProps) {
   const [date, setDate] = useState('');
   const [category, setCategory] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [companyEmail, setCompanyEmail] = useState('');
 
   const showDatePicker = () => setDatePickerVisibility(true);
   const hideDatePicker = () => setDatePickerVisibility(false);
@@ -37,6 +41,14 @@ export default function EventForm({ onSubmit }: EventFormProps) {
     setDate(formattedDate);
     hideDatePicker();
   };
+
+  if (categoriesLoading) {
+    return <Text>Loading...</Text>;
+  }
+  
+  if (companyEmail == "") {
+    setCompanyEmail(user?.email);
+  }
 
   if (categoriesLoading) {
     return <Text>Loading...</Text>;
@@ -89,7 +101,7 @@ export default function EventForm({ onSubmit }: EventFormProps) {
       </View>
 
       <View style={styles.buttonArea}>
-        <Button title="Salvar" onPress={() => onSubmit(title,description,local,date,category)} />        
+        <Button title="Salvar" onPress={() => onSubmit(title,description,local,date,category, companyEmail)} />        
         <Button title="Fechar" onPress={() => modal.hide()} />
       </View>
     </ScrollView>

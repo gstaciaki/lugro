@@ -15,14 +15,12 @@ import ConfirmDelete from '../../components/ConfirmDelete';
 import { useEffect, useState } from 'react';
 
 
-// const btnColors = ['#ed7781', '#898cc7', '#283685', '#3e610e'];
-
 export default function Index() {
   const modal = useModal();
   const { loading , remove, update, filter, all} = useCollection<EventProps>('events', false);
   const { theme } = useTheme();
   const {bgColor} = getThemeStyles(theme);
-  const {category} = useLocalSearchParams()
+  const {category, companyEmail} = useLocalSearchParams()
   const [data, setData] = useState<EventProps[]>([])
 
   const refreshData = () => {
@@ -62,7 +60,8 @@ export default function Index() {
     description: string,
     local: string,
     date: string,
-    category: string
+    category: string,
+    companyEmail: string
   ) => {
     try {
       const eventData = 
@@ -72,7 +71,8 @@ export default function Index() {
           description: description,
           local: local,
           date: date,
-          category: category
+          category: category,
+          companyEmail: companyEmail
         };
       
       const newEvent: EventProps = eventData;
@@ -85,7 +85,7 @@ export default function Index() {
   };
 
   const renderItem = ({ item, index }: { item: EventProps, index: number }) => (
-    <View style={styles.commentContainer}>
+    <View style={[styles.commentContainer, {marginTop: 30}]}>
       <ComponentEvent event={item} color={index}/>
       <View style={styles.buttonsContainer}>
           <TouchableOpacity onPress={()=> onEdit(item.id!)} style={[styles.button, { backgroundColor: '#898cc7' }]}>

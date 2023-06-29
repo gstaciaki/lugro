@@ -3,22 +3,38 @@ import React from "react";
 import { useRouter } from "expo-router";
 import { useTheme } from "../context/themeContext";
 import useAuth from "../hook/useAuth";
+import useCollection from "../hook/useCollection";
+import { CompanyProps } from "../types/Company";
+
 
 export default function Confirm(data:any) {
   const router = useRouter();
   const { loading, user, create } = useAuth();
   const { theme } = useTheme();
   const bgRegisterBtn = theme == 'dark' ? '#03DAC6' : '#99D14C';  
+  const {refreshData, create: createCompany} = useCollection<CompanyProps>('companies');
 
   const handleAlert = (data: any) => {
     Alert.alert("Confirmar", "Tem certeza que quer fazer esse cadastro? ", [
-      {
-        text: "Cancelar",
-      },
+      { text: "Cancelar" },
       {
         text: "Sim",
         onPress: async () => {
           await create(data.email, data.password);
+
+          const companyData = {
+            name: data.name,
+            cnpj: data.cnpj,
+            address: data.address,
+            number: data.number,
+            cep: data.cep,
+            district: data.district,
+            email: data.email
+          };
+          const newCompany: CompanyProps = companyData;
+          await createCompany(newCompany);
+          await refreshData();
+             
           console.log("Cadastrado de", data.name , "feito com sucesso");
           router.push({
             pathname: "/login",

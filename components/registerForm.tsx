@@ -4,12 +4,19 @@ import Confirm from "./Confirm";
 import ThemeSelector from "./ThemeSelector";
 import { getThemeStyles, useTheme } from "../context/themeContext";
 
-  
+
   interface registerFormProps {
-    onReturn: () => void;
+    onSubmit: (name: string,
+      cnpj: string,
+      address: string,
+      number: string,
+      cep: string,
+      district: string,
+      email: string,
+      password: string) => void;
   }
   
-  export default function registerForm({ onReturn }: registerFormProps) {
+  export default function registerForm({ onSubmit }: registerFormProps) {
     const [name, setName] = useState("");
     const [cnpj, setCnpj] = useState("");
     const [address, setAddress] = useState("");
@@ -36,7 +43,7 @@ import { getThemeStyles, useTheme } from "../context/themeContext";
         ])
       }
     }
-
+    
     return (
       <View style={[styles.container, {backgroundColor: bgColor}]}>
         <View style={styles.content}>
@@ -52,17 +59,12 @@ import { getThemeStyles, useTheme } from "../context/themeContext";
           </View>
         </View>
         <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Bairro' value={district} onChangeText={setDistrict} />
-        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='E-mail' value={email} onChangeText={setEmail} />
-        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Senha' value={password} onChangeText={setPassword} />
+        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='E-mail' value={email}  onChangeText={(text) => setEmail(text)} />
+        <TextInput style={[styles.input, {backgroundColor: bgInputColor}]} placeholder='Senha' value={password} keyboardType="default" secureTextEntry={true} onChangeText={setPassword} />
 
         <View style={{flexDirection:"row", marginLeft: "5%"}}>
           <View style={{flex:1}}>
-            <TouchableOpacity style={[styles.returnButton, {backgroundColor:  bgReturnBtn}]} onPress={() => onReturn()}>
-              <Text style={styles.textButton}>Voltar</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{flex:1}}>
-          <Confirm name={name} cnpj={cnpj} address={address} number={number} cep={cep} district={district} email={email} password={password}/>
+            <Confirm name={name} cnpj={cnpj} address={address} number={number} cep={cep} district={district} email={email} password={password} />
           </View>
         </View>
       </View>

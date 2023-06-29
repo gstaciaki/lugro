@@ -27,7 +27,7 @@ export default function Index() {
   };
 
   return (
-    <View style={[defaultStyles.container, { backgroundColor: bgColor }]}>
+    <View style={[defaultStyles.container, { backgroundColor: bgColor}]}>
 
       <Svg height="100%" width="100%" viewBox="0 25 100 100" style={{ position: 'absolute' }}>
         <Polygon
@@ -36,7 +36,7 @@ export default function Index() {
         />
       </Svg>
 
-      <View style={defaultStyles.logoContainer}>
+      <View style={[defaultStyles.logoContainer, {height: 250}]}>
         <Image source={require("../../assets/LugRo_logo.png")}></Image>
       </View>
 
