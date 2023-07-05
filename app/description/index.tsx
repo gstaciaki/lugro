@@ -14,6 +14,7 @@ import CommentEditForm from '../../components/comment/CommentEditForm';
 import CommentForm from '../../components/comment/CommentForm';
 import { Ionicons } from "@expo/vector-icons";
 import ConfirmDelete from '../../components/ConfirmDelete';
+import StarRating from '../../components/starRating/starRating';
 
 export default function Index() {
   const { eventId } = useSearchParams();
@@ -23,6 +24,10 @@ export default function Index() {
 
   const { theme } = useTheme();
   const bgColor = theme == 'dark' ? '#000000' : '#EEEFFD';
+
+  const rating = (commentsData.map(e => parseInt(e.rating)).reduce((partialSum, a) => partialSum + a, 0)) / commentsData.length
+  console.log(rating)
+  
 
   const refreshComments = async () => {
     await refreshData();
@@ -97,8 +102,8 @@ export default function Index() {
             
             <View style={styles.ratingStarsContainer}>
               <View style={styles.ratingStarsContent}>
-                <Image source={require('../../assets/stars.png')} style={styles.starImg} />
-                <Text style={styles.ratingText}>(3) Avaliações</Text>
+                <StarRating rating={rating}></StarRating>
+                <Text style={styles.ratingText}>({commentsData.length}) Avaliações</Text>
               </View>
             </View>
             
