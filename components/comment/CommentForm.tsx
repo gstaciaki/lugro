@@ -4,6 +4,7 @@ import { useModal } from "../ModalProvider";
 import useCollection from "../../hook/useCollection";
 import { CommentProps } from "../../types/Comment";
 import styles from "./styles";
+import StarRatingInput from "../starRating/starRatingInput";
 
 interface CommentFormProps {
   onSubmit: (
@@ -28,7 +29,7 @@ export default function CommentForm({ onSubmit } : CommentFormProps) {
 
       <View style={styles.field}>
         <Text style={styles.label}>Nota</Text>
-        <TextInput style={styles.input} onChangeText={setRating} />
+        <StarRatingInput rating={parseInt(rating)} onPress={setRating} />
       </View>
 
       <View style={styles.buttonArea}>
